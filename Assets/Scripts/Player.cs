@@ -5,9 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
+    private GameObject _laserPrefab;
+   
+    [SerializeField]
     private float _moveSpeed = 5f;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
@@ -15,7 +18,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        CalculateMovement();   
+        CalculateMovement();
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            // spawn laser Prefab
+            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+        }
+        
+        
     }
 
 
