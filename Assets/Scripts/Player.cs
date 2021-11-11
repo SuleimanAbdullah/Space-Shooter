@@ -22,7 +22,9 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             // spawn laser Prefab
-            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+            Instantiate(_laserPrefab, transform.position + new Vector3(0,0.5f,0) , Quaternion.identity);
+            Debug.Break();
+            
         }
         
         
