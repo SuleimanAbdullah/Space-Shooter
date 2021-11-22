@@ -14,6 +14,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _moveSpeed = 5f;
 
+
+    [SerializeField]
+    private int _lives = 3;
+
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
@@ -60,6 +64,20 @@ public class Player : MonoBehaviour
     private void FireLaser()
     {
         _canFire = Time.time + _fireRate;
-        Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+        Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
     }
+
+    public void TakeDamage()
+    {
+        _lives--;
+        //if Lives is Less than 1
+        //destroy Player
+        if (_lives < 1)
+        {
+            Destroy(this.gameObject);
+        }
+
+    }
+
+
 }
