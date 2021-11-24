@@ -19,8 +19,6 @@ public class Enemy : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            //if other is Player 
-            //damage the player
             other.transform.GetComponent<Player>().TakeDamage();
 
             Destroy(this.gameObject);
@@ -31,7 +29,4 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
-
-
 }

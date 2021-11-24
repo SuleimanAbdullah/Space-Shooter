@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private float _canFire = .2f;
-
     private float _fireRate = 0.03f;
 
     [SerializeField]
@@ -13,7 +12,6 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float _moveSpeed = 5f;
-
 
     [SerializeField]
     private int _lives = 3;
@@ -70,14 +68,10 @@ public class Player : MonoBehaviour
     public void TakeDamage()
     {
         _lives--;
-        //if Lives is Less than 1
-        //destroy Player
+       
         if (_lives < 1)
         {
             Destroy(this.gameObject);
         }
-
     }
-
-
 }
