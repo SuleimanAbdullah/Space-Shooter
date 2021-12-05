@@ -377,6 +377,7 @@ MonoBehaviour:
     type: 3}
   _moveSpeed: 5
   _lives: 3
+  _isTripleShotActive: 0
   _TripleShotPrefab: {fileID: 123083814594402304, guid: 6cc9ffe14b683c646b5777129a2fc1ca,
     type: 3}
 --- !u!212 &1853566126
