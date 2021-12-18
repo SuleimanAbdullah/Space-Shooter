@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _TripleShotPrefab;
 
+
+
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
@@ -99,5 +101,10 @@ public class Player : MonoBehaviour
             }
             Destroy(this.gameObject);
         }
+    }
+
+    public void ActivateTripleShot()
+    {
+        _isTripleShotActive = true;
     }
 }
