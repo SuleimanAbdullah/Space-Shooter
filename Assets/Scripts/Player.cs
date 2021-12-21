@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     private float _fireRate = 0.03f;
     private SpawnManager _spawnManager;
 
+    private WaitForSeconds _timeBeforeCoolDown = new WaitForSeconds(5f);
+
     [SerializeField]
     private GameObject _laserPrefab;
 
@@ -22,8 +24,6 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GameObject _TripleShotPrefab;
-
-
 
     void Start()
     {
@@ -106,5 +106,13 @@ public class Player : MonoBehaviour
     public void ActivateTripleShot()
     {
         _isTripleShotActive = true;
+        StartCoroutine(TripleShotPowerDownRoutine());
+        
+    }
+
+    public IEnumerator TripleShotPowerDownRoutine()
+    {
+        yield return _timeBeforeCoolDown;
+        _isTripleShotActive = false;
     }
 }
