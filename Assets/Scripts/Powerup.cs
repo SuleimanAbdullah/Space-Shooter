@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
+    [SerializeField]
     private float _speed = 3f;
     private Player _player;
 
