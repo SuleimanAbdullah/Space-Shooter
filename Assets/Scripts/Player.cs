@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
     private float _fireRate = 0.03f;
     private SpawnManager _spawnManager;
 
-    private WaitForSeconds _timeBeforeCoolDown = new WaitForSeconds(5f);
+    [SerializeField]
+    private WaitForSeconds _timeBeforeCoolDown = new WaitForSeconds(6f);
 
     [SerializeField]
     private GameObject _laserPrefab;
@@ -18,12 +19,13 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private int _lives = 3;
-    
+
     [SerializeField]
     private bool _isTripleShotActive;
 
     [SerializeField]
     private GameObject _TripleShotPrefab;
+    private bool _isSpeedBoostActive;
 
     void Start()
     {
@@ -73,28 +75,23 @@ public class Player : MonoBehaviour
     {
         _canFire = Time.time + _fireRate;
 
-        if(_isTripleShotActive== true)
+        if (_isTripleShotActive == true)
         {
-            //fire Triple shot
             Instantiate(_TripleShotPrefab, transform.position, Quaternion.identity);
-            
         }
 
         else
         {
             Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
         }
-        
     }
 
     public void TakeDamage()
     {
         _lives--;
-       
+
         if (_lives < 1)
         {
-            //communicate 
-            //with SpawnManager
             if (_spawnManager != null)
             {
                 _spawnManager.OnPlayerDeath();
@@ -107,12 +104,25 @@ public class Player : MonoBehaviour
     {
         _isTripleShotActive = true;
         StartCoroutine(TripleShotPowerDownRoutine());
-        
     }
 
+    public void ActivateSpeedBoost()
+    {
+        _moveSpeed = _moveSpeed + 3f;
+        _isSpeedBoostActive = true;
+        StartCoroutine(SpeedbBoostPowerDownRoutine());
+    }
     public IEnumerator TripleShotPowerDownRoutine()
     {
         yield return _timeBeforeCoolDown;
         _isTripleShotActive = false;
     }
+
+    IEnumerator SpeedbBoostPowerDownRoutine()
+    {
+        yield return _timeBeforeCoolDown;
+        _moveSpeed = 5f;
+        _isSpeedBoostActive = false;
+    }
+
 }
