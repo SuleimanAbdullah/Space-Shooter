@@ -29,17 +29,20 @@ public class Powerup : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if(_player != null)
+            if (_player != null)
             {
-                if (_powerupID == 0)
+                switch (_powerupID)
                 {
-                    _player.ActivateTripleShot();
+                    case 0:
+                        _player.ActivateTripleShot();
+                        break;
+                    case 1:
+                        _player.ActivateSpeedBoost();
+                        break;
+                    case 2:
+                        _player.ActivateShield();
+                        break;
                 }
-                else if (_powerupID == 1)
-                {
-                    _player.ActivateSpeedBoost();
-                }
-                
             }
             Destroy(this.gameObject);
         }

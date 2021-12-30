@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    private bool _isDead = false;
+
     [SerializeField]
     private GameObject _enemyPrefab;
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
     private GameObject _tripleShotPowerupPrefab;
-   [SerializeField]
+    [SerializeField]
     private GameObject _speedBoostPowerupPrefab;
-    private bool _isDead = false;
-    
+    [SerializeField]
+    private GameObject _ShieldPowerupPrefab;
+
     void Start()
     {
         StartCoroutine(EnemySpawnRoutine());
         StartCoroutine(SpawnTripleShotPowerupRoutine());
         StartCoroutine(SpawnSpeedBoostPowerDownRoutine());
+        StartCoroutine(SpawnShieldPowerupRoutine());
     }
 
     IEnumerator EnemySpawnRoutine()
@@ -26,7 +30,7 @@ public class SpawnManager : MonoBehaviour
         while (_isDead == false)
         {
             Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
-            var newEnemy =Instantiate(_enemyPrefab, randomPos, Quaternion.identity);
+            var newEnemy = Instantiate(_enemyPrefab, randomPos, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(5f);
         }
@@ -36,7 +40,7 @@ public class SpawnManager : MonoBehaviour
     {
         while (_isDead == false)
         {
-            Vector3 randomPos = new Vector3(Random.Range(-9,9),8, 0);
+            Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
             Instantiate(_tripleShotPowerupPrefab, randomPos, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3f, 8f));
         }
@@ -49,6 +53,16 @@ public class SpawnManager : MonoBehaviour
             Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
             Instantiate(_speedBoostPowerupPrefab, randomPos, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(4f, 8f));
+        }
+    }
+
+    IEnumerator SpawnShieldPowerupRoutine()
+    {
+        while (_isDead == false)
+        {
+            Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
+            Instantiate(_ShieldPowerupPrefab, randomPos, Quaternion.identity);
+            yield return new WaitForSeconds(5f);
         }
     }
 

@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GameObject _laserPrefab;
+    [SerializeField]
+    private GameObject _shieldVisualizer;
 
     [SerializeField]
     private float _moveSpeed = 5f;
@@ -22,15 +24,17 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private bool _isTripleShotActive;
+    private bool _isSpeedBoostActive;
+    private bool _isShieldActive;
 
     [SerializeField]
     private GameObject _TripleShotPrefab;
-    private bool _isSpeedBoostActive;
 
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        _shieldVisualizer.SetActive(false);
     }
 
     void Update()
@@ -88,6 +92,12 @@ public class Player : MonoBehaviour
 
     public void TakeDamage()
     {
+        if (_isShieldActive == true)
+        {
+            _isShieldActive = false;
+            _shieldVisualizer.SetActive(false);
+            return;
+        }
         _lives--;
 
         if (_lives < 1)
@@ -112,6 +122,13 @@ public class Player : MonoBehaviour
         _isSpeedBoostActive = true;
         StartCoroutine(SpeedbBoostPowerDownRoutine());
     }
+
+    public void ActivateShield()
+    {
+        _isShieldActive = true;
+        _shieldVisualizer.SetActive(true);
+    }
+
     public IEnumerator TripleShotPowerDownRoutine()
     {
         yield return _timeBeforeCoolDown;
