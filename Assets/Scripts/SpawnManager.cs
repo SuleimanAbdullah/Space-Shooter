@@ -25,6 +25,14 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnShieldPowerupRoutine());
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
     IEnumerator EnemySpawnRoutine()
     {
         while (_isDead == false)

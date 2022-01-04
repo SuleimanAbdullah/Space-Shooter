@@ -32,6 +32,7 @@ public class Powerup : MonoBehaviour
             if (_player != null)
             {
                 switch (_powerupID)
+
                 {
                     case 0:
                         _player.ActivateTripleShot();
