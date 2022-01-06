@@ -584,6 +584,7 @@ GameObject:
   - component: {fileID: 1750885266}
   - component: {fileID: 1750885265}
   - component: {fileID: 1750885264}
+  - component: {fileID: 1750885268}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -671,6 +672,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1750885268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750885263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb8c0ffede3f3d04bb6c7b8b245fff91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreText: {fileID: 425996998}
 --- !u!1 &1853566124
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,7 +722,6 @@ MonoBehaviour:
   _shieldVisualizer: {fileID: 472364370}
   _moveSpeed: 5
   _lives: 3
-  _isTripleShotActive: 0
   _TripleShotPrefab: {fileID: 123083814594402304, guid: 6cc9ffe14b683c646b5777129a2fc1ca,
     type: 3}
 --- !u!212 &1853566126

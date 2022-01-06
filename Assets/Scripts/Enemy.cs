@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
         if (other.tag == "Laser")
         {
             Destroy(other.gameObject);
+            _player.AddingScoreWhenKillEnemyL(10);
             Destroy(this.gameObject);
         }
     }

@@ -6,7 +6,15 @@ public class Player : MonoBehaviour
 {
     private float _canFire = .2f;
     private float _fireRate = 0.03f;
+
+    private bool _isTripleShotActive;
+    private bool _isSpeedBoostActive;
+    private bool _isShieldActive;
+    [SerializeField]
+    public  int _score;
+
     private SpawnManager _spawnManager;
+    UIManager _uiManager;
 
     [SerializeField]
     private WaitForSeconds _timeBeforeCoolDown = new WaitForSeconds(6f);
@@ -23,17 +31,13 @@ public class Player : MonoBehaviour
     private int _lives = 3;
 
     [SerializeField]
-    private bool _isTripleShotActive;
-    private bool _isSpeedBoostActive;
-    private bool _isShieldActive;
-
-    [SerializeField]
     private GameObject _TripleShotPrefab;
 
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _shieldVisualizer.SetActive(false);
     }
 
@@ -127,6 +131,16 @@ public class Player : MonoBehaviour
     {
         _isShieldActive = true;
         _shieldVisualizer.SetActive(true);
+    }
+
+    public void AddingScoreWhenKillEnemyL(int amount)
+    {
+         _score += amount;
+
+        if (_uiManager !=null)
+        {
+            _uiManager.UpdateScore(_score);
+        }
     }
 
     public IEnumerator TripleShotPowerDownRoutine()
