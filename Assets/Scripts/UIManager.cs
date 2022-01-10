@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     private Image _imageLives;
     [SerializeField]
     private Sprite[] _livesSprite;
+    [SerializeField]
+    private GameObject _gameOverText;
 
     void Start()
     {
@@ -27,4 +29,11 @@ public class UIManager : MonoBehaviour
     {
         _imageLives.sprite = _livesSprite[currentLives];
     }
+
+    public void GameOver()
+    {
+        _gameOverText.SetActive(true);
+    }
+
+
 }
