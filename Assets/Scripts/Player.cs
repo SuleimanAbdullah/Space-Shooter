@@ -110,11 +110,6 @@ public class Player : MonoBehaviour
             if (_spawnManager != null)
             {
                 _spawnManager.OnPlayerDeath();
-                if (_uiManager != null)
-                {
-                    _uiManager.GameOver();
-                }
-
             }
             Destroy(this.gameObject);
         }

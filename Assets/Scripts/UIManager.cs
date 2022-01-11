@@ -28,12 +28,28 @@ public class UIManager : MonoBehaviour
     public void UpdateLives(int currentLives)
     {
         _imageLives.sprite = _livesSprite[currentLives];
+
+        if (currentLives == 0)
+        {
+            GameOver();
+        }
     }
 
     public void GameOver()
     {
-        _gameOverText.SetActive(true);
+        StartCoroutine(TextFlicker());
     }
 
+    IEnumerator TextFlicker()
+    {
+        while (true)
+        {
+            _gameOverText.SetActive(true);
+            yield return new WaitForSeconds(.2f);
+            _gameOverText.SetActive(false);
+            yield return new WaitForSeconds(.2f);
+            _gameOverText.SetActive(true);
+        }
+    }
 
 }
