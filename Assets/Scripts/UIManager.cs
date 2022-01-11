@@ -17,21 +17,20 @@ public class UIManager : MonoBehaviour
     private GameObject _gameOverText;
     [SerializeField]
     private GameObject _restartText;
-
+    private GameManager _gameManager;
 
 
     void Start()
     {
         _scoreText.text = "Score:" + 0;
-    }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
+        _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        if (_gameManager == null)
         {
-            SceneManager.LoadScene(0);
+            Debug.Log("GameManager is Null");
         }
     }
+
 
     public void UpdateScore(int score)
     {
@@ -46,6 +45,7 @@ public class UIManager : MonoBehaviour
         {
             GameOver();
             RestartText();
+            _gameManager.GameOver();
         }
     }
 
