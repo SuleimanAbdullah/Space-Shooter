@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class UIManager : MonoBehaviour
@@ -14,10 +15,22 @@ public class UIManager : MonoBehaviour
     private Sprite[] _livesSprite;
     [SerializeField]
     private GameObject _gameOverText;
+    [SerializeField]
+    private GameObject _restartText;
+
+
 
     void Start()
     {
         _scoreText.text = "Score:" + 0;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     public void UpdateScore(int score)
@@ -32,12 +45,18 @@ public class UIManager : MonoBehaviour
         if (currentLives == 0)
         {
             GameOver();
+            RestartText();
         }
     }
 
     public void GameOver()
     {
         StartCoroutine(TextFlicker());
+    }
+
+    public void RestartText()
+    {
+        _restartText.SetActive(true);
     }
 
     IEnumerator TextFlicker()
