@@ -17,13 +17,6 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _ShieldPowerupPrefab;
 
-    void Start()
-    {
-        StartCoroutine(EnemySpawnRoutine());
-        StartCoroutine(SpawnTripleShotPowerupRoutine());
-        StartCoroutine(SpawnSpeedBoostPowerDownRoutine());
-        StartCoroutine(SpawnShieldPowerupRoutine());
-    }
 
     private void Update()
     {
@@ -31,6 +24,13 @@ public class SpawnManager : MonoBehaviour
         {
             Application.Quit();
         }
+    }
+    public void StartSpawning()
+    {
+        StartCoroutine(EnemySpawnRoutine());
+        StartCoroutine(SpawnTripleShotPowerupRoutine());
+        StartCoroutine(SpawnSpeedBoostPowerDownRoutine());
+        StartCoroutine(SpawnShieldPowerupRoutine());
     }
 
     IEnumerator EnemySpawnRoutine()
