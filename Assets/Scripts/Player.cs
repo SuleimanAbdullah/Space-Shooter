@@ -33,6 +33,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _TripleShotPrefab;
 
+    [SerializeField]
+    private GameObject _rightEngine;
+    [SerializeField]
+    private GameObject _leftEngine;
+
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
@@ -103,6 +108,14 @@ public class Player : MonoBehaviour
             return;
         }
         _lives--;
+        if (_lives == 2)
+        {
+            _rightEngine.SetActive(true);
+        }
+        else if (_lives==1)
+        {
+            _leftEngine.SetActive(true);
+        }
         _uiManager.UpdateLives(_lives);
 
         if (_lives < 1)
