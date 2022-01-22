@@ -14,7 +14,9 @@ public class Player : MonoBehaviour
     public  int _score;
 
     private SpawnManager _spawnManager;
-    UIManager _uiManager;
+    private UIManager _uiManager;
+
+    private AudioSource _audioSource;
 
     [SerializeField]
     private WaitForSeconds _timeBeforeCoolDown = new WaitForSeconds(6f);
@@ -43,6 +45,12 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource == null)
+        {
+            Debug.Log("The Audio Source is NULL:");
+        }
+
         _shieldVisualizer.SetActive(false);
     }
 
@@ -97,6 +105,8 @@ public class Player : MonoBehaviour
         {
             Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
         }
+
+        _audioSource.Play();
     }
 
     public void TakeDamage()
