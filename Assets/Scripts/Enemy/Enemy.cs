@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     private Player _player;
 
     private Animator _animator;
+    [SerializeField]
+    private AudioClip _explosionClip;
 
     private void Start()
     {
@@ -39,6 +41,7 @@ public class Enemy : MonoBehaviour
                 _animator.SetTrigger("OnDestroyed");
             }
             Destroy(this.gameObject,2.4f);
+            AudioSource.PlayClipAtPoint(_explosionClip,transform.position);
         }
         if (other.tag == "Laser")
         {
@@ -50,6 +53,9 @@ public class Enemy : MonoBehaviour
             }
            
             Destroy(this.gameObject,2.4f);
+
+
+            AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
         }
     }
 }
