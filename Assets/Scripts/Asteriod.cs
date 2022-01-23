@@ -8,6 +8,7 @@ public class Asteriod : MonoBehaviour
     private float _speed = 3f;
     [SerializeField]
     private GameObject _explosionPrefab;
+
     private SpawnManager _spawnManager;
 
     private void Start()

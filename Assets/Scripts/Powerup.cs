@@ -11,9 +11,15 @@ public class Powerup : MonoBehaviour
     [SerializeField]
     private int _powerupID;
 
+    private SpriteRenderer _powerupsprite;
+
+    private AudioSource _audioSource;
+
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
+        _audioSource = GetComponent<AudioSource>();
+        _powerupsprite = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -45,7 +51,10 @@ public class Powerup : MonoBehaviour
                         break;
                 }
             }
-            Destroy(this.gameObject);
+            _powerupsprite.enabled = false;
+            _audioSource.Play();
+
+            Destroy(this.gameObject, 3f);
         }
     }
 
