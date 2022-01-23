@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject,2.4f);
 
 
-            AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
+           AudioSource.PlayClipAtPoint(_explosionClip,transform.position);
         }
     }
 }

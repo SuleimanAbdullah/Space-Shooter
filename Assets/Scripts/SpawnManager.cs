@@ -11,11 +11,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
-    private GameObject _tripleShotPowerupPrefab;
-    [SerializeField]
-    private GameObject _speedBoostPowerupPrefab;
-    [SerializeField]
-    private GameObject _ShieldPowerupPrefab;
+    private GameObject[] _PowerupPrefabs;
+   
 
 
     private void Update()
@@ -28,9 +25,8 @@ public class SpawnManager : MonoBehaviour
     public void StartSpawning()
     {
         StartCoroutine(EnemySpawnRoutine());
-        StartCoroutine(SpawnTripleShotPowerupRoutine());
-        StartCoroutine(SpawnSpeedBoostPowerDownRoutine());
-        StartCoroutine(SpawnShieldPowerupRoutine());
+        StartCoroutine(SpawntPowerupsRoutine());
+        
     }
 
     IEnumerator EnemySpawnRoutine()
@@ -44,33 +40,13 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnTripleShotPowerupRoutine()
+    IEnumerator SpawntPowerupsRoutine()
     {
         while (_isDead == false)
         {
             Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
-            Instantiate(_tripleShotPowerupPrefab, randomPos, Quaternion.identity);
+            Instantiate(_PowerupPrefabs[Random.Range(0,3)], randomPos, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3f, 8f));
-        }
-    }
-
-    IEnumerator SpawnSpeedBoostPowerDownRoutine()
-    {
-        while (_isDead == false)
-        {
-            Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
-            Instantiate(_speedBoostPowerupPrefab, randomPos, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(4f, 8f));
-        }
-    }
-
-    IEnumerator SpawnShieldPowerupRoutine()
-    {
-        while (_isDead == false)
-        {
-            Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
-            Instantiate(_ShieldPowerupPrefab, randomPos, Quaternion.identity);
-            yield return new WaitForSeconds(5f);
         }
     }
 
