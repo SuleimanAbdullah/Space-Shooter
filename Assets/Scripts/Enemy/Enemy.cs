@@ -11,10 +11,14 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private AudioClip _explosionClip;
 
+    private Collider2D _enemyCollider;
+
     private void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _animator = GetComponent<Animator>();
+
+        _enemyCollider = GetComponent<Collider2D>();
     }
 
     void Update()
@@ -35,27 +39,27 @@ public class Enemy : MonoBehaviour
             {
                 _player.TakeDamage();
             }
-            
-            if (_animator !=null)
+
+            if (_animator != null)
             {
                 _animator.SetTrigger("OnDestroyed");
             }
-            Destroy(this.gameObject,2.4f);
-            AudioSource.PlayClipAtPoint(_explosionClip,transform.position);
+            AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
+            Destroy(_enemyCollider);
+            Destroy(this.gameObject, 2.4f);
+
         }
         if (other.tag == "Laser")
         {
             Destroy(other.gameObject);
             _player.AddingScoreWhenKillEnemyL(10);
-            if (_animator !=null)
+            if (_animator != null)
             {
                 _animator.SetTrigger("OnDestroyed");
             }
-           
-            Destroy(this.gameObject,2.4f);
-
-
-           AudioSource.PlayClipAtPoint(_explosionClip,transform.position);
+            AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
+            Destroy(_enemyCollider);
+            Destroy(this.gameObject, 2.4f);
         }
     }
 }
