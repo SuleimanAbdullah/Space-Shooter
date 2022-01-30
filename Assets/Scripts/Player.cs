@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
 
         else
         {
-            Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+            Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.04f, 0), Quaternion.identity);
         }
 
         _audioSource.Play();

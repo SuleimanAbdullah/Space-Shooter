@@ -9,7 +9,12 @@ public class Laser : MonoBehaviour
     [SerializeField]
     private bool _isEnemyLaser;
 
+    private Player _player;
 
+    private void Start()
+    {
+        _player = GameObject.Find("Player").GetComponent<Player>();
+    }
 
     void Update()
     {
@@ -52,6 +57,15 @@ public class Laser : MonoBehaviour
         _isEnemyLaser = true;
     }
 
-
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag =="Player" && _isEnemyLaser == true)
+        {
+            if (_player != null)
+            {
+                _player.TakeDamage();
+            }
+        }
+    }
 
 }
