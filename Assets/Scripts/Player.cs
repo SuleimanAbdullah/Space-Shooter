@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    private float _speedMultiplier = 2.0f;
     private float _canFire = .2f;
     private float _fireRate = 0.03f;
 
@@ -62,6 +64,17 @@ public class Player : MonoBehaviour
         {
             FireLaser();
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            _moveSpeed *= _speedMultiplier;
+        }
+        else if(Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            _moveSpeed /= _speedMultiplier;
+        }
+
+
     }
 
     void CalculateMovement()
