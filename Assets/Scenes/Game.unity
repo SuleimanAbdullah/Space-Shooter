@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 472364371}
   - component: {fileID: 472364372}
   m_Layer: 0
-  m_Name: Shields_00000
+  m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1649,6 +1649,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 200599191b6e17242bf597734a2efb93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shieldStrength: 3
+  _shieldRenderer: {fileID: 472364372}
   _score: 0
   _laserPrefab: {fileID: 1492776467014425868, guid: 25cd8d7c5f48d9f48bf7b219d1575b96,
     type: 3}

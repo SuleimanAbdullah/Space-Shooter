@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField]
+    private int _shieldStrength = 3;
+    [SerializeField]
+    private SpriteRenderer _shieldRenderer;
 
     private float _speedMultiplier = 2.0f;
     private float _canFire = .2f;
@@ -124,11 +128,28 @@ public class Player : MonoBehaviour
 
     public void TakeDamage()
     {
+        
         if (_isShieldActive == true)
         {
-            _isShieldActive = false;
-            _shieldVisualizer.SetActive(false);
-            return;
+            _shieldStrength--;
+            if (_shieldStrength ==2)
+            {
+                StartCoroutine(ShieldHitVisual());
+                return;
+            }
+            else if (_shieldStrength ==1)
+            {
+                StartCoroutine(ShieldHitVisual());
+                return;
+            }
+            if (_shieldStrength<1)
+            {
+                _shieldStrength = 0;
+                _isShieldActive = false;
+                _shieldVisualizer.SetActive(false);
+                return;
+            }
+
         }
         _lives--;
         if (_lives == 2)
@@ -167,6 +188,7 @@ public class Player : MonoBehaviour
     public void ActivateShield()
     {
         _isShieldActive = true;
+        _shieldStrength = 3;
         _shieldVisualizer.SetActive(true);
     }
 
@@ -192,5 +214,14 @@ public class Player : MonoBehaviour
         _moveSpeed = 5f;
         _isSpeedBoostActive = false;
     }
+
+    IEnumerator ShieldHitVisual()
+    {
+        //change color first then wait
+        _shieldRenderer.color = Color.red;
+        yield return new WaitForSeconds(.5f);
+        _shieldRenderer.color = Color.white;
+    }
+
 
 }
