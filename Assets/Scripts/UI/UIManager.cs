@@ -18,11 +18,13 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject _restartText;
     private GameManager _gameManager;
-
+    [SerializeField]
+    private Text _ammoText;
 
     void Start()
     {
         _scoreText.text = "Score:" + 0;
+        _ammoText.text = "Ammo:" + 15;
 
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         if (_gameManager == null)
@@ -31,10 +33,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
     public void UpdateScore(int score)
     {
         _scoreText.text = "Score:" + score;
+    }
+    public void UpdateAmmo(int ammo)
+    {
+        _ammoText.text = "Ammo:" + ammo;
     }
 
     public void UpdateLives(int currentLives)
@@ -70,5 +75,4 @@ public class UIManager : MonoBehaviour
             _gameOverText.SetActive(true);
         }
     }
-
 }

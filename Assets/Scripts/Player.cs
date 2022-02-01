@@ -17,11 +17,16 @@ public class Player : MonoBehaviour
     private bool _isSpeedBoostActive;
     private bool _isShieldActive;
     [SerializeField]
-    public  int _score;
+    private int _score;
+
+    private int _totalLasers = 15;
+    [SerializeField]
+    private int _currentLasers;
+
+
 
     private SpawnManager _spawnManager;
     private UIManager _uiManager;
-
     private AudioSource _audioSource;
 
     [SerializeField]
@@ -58,6 +63,7 @@ public class Player : MonoBehaviour
         }
 
         _shieldVisualizer.SetActive(false);
+        _currentLasers = _totalLasers;
     }
 
     void Update()
@@ -73,7 +79,7 @@ public class Player : MonoBehaviour
         {
             _moveSpeed *= _speedMultiplier;
         }
-        else if(Input.GetKeyUp(KeyCode.LeftShift))
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             _moveSpeed /= _speedMultiplier;
         }
@@ -113,36 +119,46 @@ public class Player : MonoBehaviour
     {
         _canFire = Time.time + _fireRate;
 
-        if (_isTripleShotActive == true)
+        //check if current laser is greater than zero 
+        //fireLaser then call
+        //ammo count
+        if (_currentLasers > 0)
         {
-            Instantiate(_TripleShotPrefab, transform.position, Quaternion.identity);
+            if (_isTripleShotActive == true)
+            {
+                Instantiate(_TripleShotPrefab, transform.position, Quaternion.identity);
+            }
+
+            else
+            {
+                Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.04f, 0), Quaternion.identity);
+            }
+
+            _audioSource.Play();
+            AmmoCount(1);
         }
 
-        else
-        {
-            Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.04f, 0), Quaternion.identity);
-        }
+       
 
-        _audioSource.Play();
     }
 
     public void TakeDamage()
     {
-        
+
         if (_isShieldActive == true)
         {
             _shieldStrength--;
-            if (_shieldStrength ==2)
+            if (_shieldStrength == 2)
             {
                 StartCoroutine(ShieldHitVisual());
                 return;
             }
-            else if (_shieldStrength ==1)
+            else if (_shieldStrength == 1)
             {
                 StartCoroutine(ShieldHitVisual());
                 return;
             }
-            if (_shieldStrength<1)
+            if (_shieldStrength < 1)
             {
                 _shieldStrength = 0;
                 _isShieldActive = false;
@@ -156,7 +172,7 @@ public class Player : MonoBehaviour
         {
             _rightEngine.SetActive(true);
         }
-        else if (_lives==1)
+        else if (_lives == 1)
         {
             _leftEngine.SetActive(true);
         }
@@ -194,9 +210,9 @@ public class Player : MonoBehaviour
 
     public void AddingScoreWhenKillEnemyL(int amount)
     {
-         _score += amount;
+        _score += amount;
 
-        if (_uiManager !=null)
+        if (_uiManager != null)
         {
             _uiManager.UpdateScore(_score);
         }
@@ -221,6 +237,20 @@ public class Player : MonoBehaviour
         _shieldRenderer.color = Color.red;
         yield return new WaitForSeconds(.5f);
         _shieldRenderer.color = Color.white;
+    }
+
+    private void AmmoCount(int amount)
+    {
+        _currentLasers -= amount;
+        if (_uiManager != null)
+        {
+            _uiManager.UpdateAmmo(_currentLasers);
+        }
+        
+        if (_currentLasers < 1)
+        {
+            _currentLasers = 0;
+        }
     }
 
 
