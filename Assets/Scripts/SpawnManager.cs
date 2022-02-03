@@ -32,7 +32,9 @@ public class SpawnManager : MonoBehaviour
     IEnumerator EnemySpawnRoutine()
     {
         while (_isDead == false)
+
         {
+            yield return new WaitForSeconds(3f);
             Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
             var newEnemy = Instantiate(_enemyPrefab, randomPos, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
@@ -44,8 +46,9 @@ public class SpawnManager : MonoBehaviour
     {
         while (_isDead == false)
         {
+            yield return new WaitForSeconds(3f);
             Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
-            Instantiate(_PowerupPrefabs[Random.Range(0,3)], randomPos, Quaternion.identity);
+            Instantiate(_PowerupPrefabs[Random.Range(0,4)], randomPos, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3f, 8f));
         }
     }

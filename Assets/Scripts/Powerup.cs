@@ -49,6 +49,9 @@ public class Powerup : MonoBehaviour
                     case 2:
                         _player.ActivateShield();
                         break;
+                    case 3:
+                        _player.AmmoCollectible(15);
+                        break;
                 }
             }
             _powerupsprite.enabled = false;

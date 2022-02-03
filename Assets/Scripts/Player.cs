@@ -253,5 +253,16 @@ public class Player : MonoBehaviour
         }
     }
 
-
+    public void AmmoCollectible(int amount)
+    {
+        _currentLasers = amount;
+        if (_uiManager != null)
+        {
+            _uiManager.UpdateAmmo(_currentLasers);
+        }
+        if (_currentLasers < 1)
+        {
+            _currentLasers = amount;
+        }
+    }
 }
