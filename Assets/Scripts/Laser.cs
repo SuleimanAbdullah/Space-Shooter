@@ -48,6 +48,10 @@ public class Laser : MonoBehaviour
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
         if (transform.position.y < -7)
         {
+            if (transform.parent != null)
+            {
+                Destroy(transform.parent.gameObject);
+            }
             Destroy(this.gameObject);
         }
     }
@@ -59,7 +63,7 @@ public class Laser : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag =="Player" && _isEnemyLaser == true)
+        if (other.tag=="Player" && _isEnemyLaser == true)
         {
             if (_player != null)
             {

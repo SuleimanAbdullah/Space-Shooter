@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
+    private ParticleSystem _particle;
+    [SerializeField]
     private int _shieldStrength = 3;
     [SerializeField]
     private SpriteRenderer _shieldRenderer;
@@ -57,6 +59,7 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
+
         if (_audioSource == null)
         {
             Debug.Log("The Audio Source is NULL:");
@@ -119,9 +122,6 @@ public class Player : MonoBehaviour
     {
         _canFire = Time.time + _fireRate;
 
-        //check if current laser is greater than zero 
-        //fireLaser then call
-        //ammo count
         if (_currentLasers > 0)
         {
             if (_isTripleShotActive == true)
@@ -133,7 +133,6 @@ public class Player : MonoBehaviour
             {
                 Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.04f, 0), Quaternion.identity);
             }
-
             _audioSource.Play();
             AmmoCount(1);
         }
@@ -233,7 +232,6 @@ public class Player : MonoBehaviour
 
     IEnumerator ShieldHitVisual()
     {
-        //change color first then wait
         _shieldRenderer.color = Color.red;
         yield return new WaitForSeconds(.5f);
         _shieldRenderer.color = Color.white;
@@ -265,4 +263,28 @@ public class Player : MonoBehaviour
             _currentLasers = amount;
         }
     }
+
+    public void HealthCollectible(int health)
+    {
+        if (_lives < 3)
+        {
+            _lives++;
+            if (_lives == 3 )
+            {
+                _rightEngine.SetActive(false);
+            }
+            else if (_lives == 2)
+            {
+                _leftEngine.SetActive(false);
+            }
+            if (_uiManager != null)
+            {
+                _uiManager.UpdateLives(_lives);
+            }
+        }
+        Instantiate(_particle, transform.position, Quaternion.identity);
+        
+    }
+
+
 }

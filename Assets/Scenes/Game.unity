@@ -981,6 +981,8 @@ MonoBehaviour:
   - {fileID: 1829534427207049303, guid: c45a76aebbab10c4cbfdf4b9bf43524e, type: 3}
   - {fileID: 5658817945825072167, guid: f11b5ee6d6943ef43b3b0655cc6c992e, type: 3}
   - {fileID: 248794185838560928, guid: 2877a5650732e5546aefb888211618a5, type: 3}
+  _medkitPrefab: {fileID: 8341712040375611605, guid: ffb03405865414f4dbcdd48fb995a5b9,
+    type: 3}
 --- !u!4 &858984583
 Transform:
   m_ObjectHideFlags: 0
@@ -1730,6 +1732,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 200599191b6e17242bf597734a2efb93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _particle: {fileID: 1401675531762253804, guid: 89314e46c8bad594990c86552148bdc5,
+    type: 3}
   _shieldStrength: 3
   _shieldRenderer: {fileID: 472364372}
   _score: 0
