@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     private float _speedMultiplier = 2.0f;
     private float _canFire = .2f;
     private float _fireRate = 0.03f;
+    private float _canFireMissile = -1f;
+    private float _missileFireRate = 5f;
 
     private bool _isTripleShotActive;
     private bool _isSpeedBoostActive;
@@ -29,6 +31,11 @@ public class Player : MonoBehaviour
 
     private SpawnManager _spawnManager;
     private UIManager _uiManager;
+    [SerializeField]
+    private AudioClip _laserSoundClip;
+    [SerializeField]
+    private AudioClip _missileSoundClip;
+
     private AudioSource _audioSource;
 
     [SerializeField]
@@ -47,6 +54,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GameObject _TripleShotPrefab;
+    [SerializeField]
+    private GameObject _missilePrefab;
 
     [SerializeField]
     private GameObject _rightEngine;
@@ -59,12 +68,19 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
-
+        if (_spawnManager ==null)
+        {
+            Debug.LogError("The SpawnManager is NULL:");
+        }
+        if(_uiManager==null)
+        {
+            Debug.LogError("The UIManager is NULL:");
+        }
+          
         if (_audioSource == null)
         {
-            Debug.Log("The Audio Source is NULL:");
+            Debug.LogError("The Audio Source is NULL:");
         }
-
         _shieldVisualizer.SetActive(false);
         _currentLasers = _totalLasers;
     }
@@ -76,6 +92,10 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             FireLaser();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9) && Time.time >_canFireMissile)
+        {
+            FireMissile();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -133,12 +153,19 @@ public class Player : MonoBehaviour
             {
                 Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.04f, 0), Quaternion.identity);
             }
+            _audioSource.clip = _laserSoundClip;
             _audioSource.Play();
             AmmoCount(1);
         }
 
-       
+    }
 
+    private void FireMissile()
+    {
+        _canFireMissile = Time.time + _missileFireRate;
+        Instantiate(_missilePrefab, transform.position + new Vector3(-0.72f, -0.43f, 0), Quaternion.identity);
+        _audioSource.clip = _missileSoundClip;
+        _audioSource.Play();
     }
 
     public void TakeDamage()

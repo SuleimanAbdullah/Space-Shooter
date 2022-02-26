@@ -860,7 +860,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5b17a0088dcdf924fa92da5af1e1be07, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.431
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1738,12 +1738,16 @@ MonoBehaviour:
   _shieldRenderer: {fileID: 472364372}
   _score: 0
   _currentLasers: 0
+  _laserSoundClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
+  _missileSoundClip: {fileID: 8300000, guid: a024853482c816942962743c63db5f96, type: 3}
   _laserPrefab: {fileID: 1492776467014425868, guid: 25cd8d7c5f48d9f48bf7b219d1575b96,
     type: 3}
   _shieldVisualizer: {fileID: 472364370}
   _moveSpeed: 5
   _lives: 3
   _TripleShotPrefab: {fileID: 123083814594402304, guid: 6cc9ffe14b683c646b5777129a2fc1ca,
+    type: 3}
+  _missilePrefab: {fileID: 8681217062171174820, guid: ed118bdfc345d9b48adb03d9afba5b86,
     type: 3}
   _rightEngine: {fileID: 1038661961}
   _leftEngine: {fileID: 166561436}
@@ -1872,7 +1876,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1

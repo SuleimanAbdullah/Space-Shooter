@@ -72,6 +72,17 @@ public class Enemy : MonoBehaviour
             Destroy(_enemyCollider);
             Destroy(this.gameObject, 2.4f);
         }
+        if (other.tag == "Missile")
+        {
+            _player.AddingScoreWhenKillEnemyL(10);
+            if (_animator != null)
+            {
+                _animator.SetTrigger("OnDestroyed");
+            }
+            AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
+            Destroy(_enemyCollider);
+            Destroy(this.gameObject, 2.4f);
+        }
     }
 
     private void EnemyFire()
