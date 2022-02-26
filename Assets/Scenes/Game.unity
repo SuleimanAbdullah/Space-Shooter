@@ -983,6 +983,8 @@ MonoBehaviour:
   - {fileID: 248794185838560928, guid: 2877a5650732e5546aefb888211618a5, type: 3}
   _medkitPrefab: {fileID: 8341712040375611605, guid: ffb03405865414f4dbcdd48fb995a5b9,
     type: 3}
+  _missilePowerupPrefab: {fileID: 9179257763480002869, guid: 92e1393b3e89679428b42c1ae5b7a91a,
+    type: 3}
 --- !u!4 &858984583
 Transform:
   m_ObjectHideFlags: 0

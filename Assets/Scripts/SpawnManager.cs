@@ -15,6 +15,9 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField]
     private GameObject _medkitPrefab;
+    [SerializeField]
+    private GameObject _missilePowerupPrefab;
+
 
     private void Update()
     {
@@ -28,6 +31,7 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(EnemySpawnRoutine());
         StartCoroutine(SpawntPowerupsRoutine());
         StartCoroutine(SpawnMedKitRoutine());
+        StartCoroutine(SpawnPowerupRarely());
         
     }
 
@@ -55,6 +59,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+
     IEnumerator SpawnMedKitRoutine()
     {
         while (_isDead == false)
@@ -66,7 +71,17 @@ public class SpawnManager : MonoBehaviour
 
         }
     }
-
+     
+    IEnumerator SpawnPowerupRarely()
+    {
+        while (_isDead == false)
+        {
+            yield return new WaitForSeconds(15);
+            Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
+            Instantiate(_missilePowerupPrefab, randomPos, Quaternion.identity);
+            yield return new WaitForSeconds(15f);
+        }
+    }
 
     public void OnPlayerDeath()
     {

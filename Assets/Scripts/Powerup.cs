@@ -12,7 +12,7 @@ public class Powerup : MonoBehaviour
     private int _powerupID;
 
     private SpriteRenderer _powerupsprite;
-
+    
     private AudioSource _audioSource;
 
     void Start()
@@ -20,6 +20,10 @@ public class Powerup : MonoBehaviour
         _player = GameObject.Find("Player").GetComponent<Player>();
         _audioSource = GetComponent<AudioSource>();
         _powerupsprite = GetComponent<SpriteRenderer>();
+        if (_player == null)
+        {
+            Debug.LogError("Player is NULL:");
+        }
     }
 
     void Update()
@@ -51,6 +55,9 @@ public class Powerup : MonoBehaviour
                         break;
                     case 3:
                         _player.AmmoCollectible(15);
+                        break;
+                    case 4:
+                        _player.ActivateMissile();
                         break;
                 }
             }

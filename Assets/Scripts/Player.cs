@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     private bool _isTripleShotActive;
     private bool _isSpeedBoostActive;
     private bool _isShieldActive;
+    private bool _isMissileActive;
     [SerializeField]
     private int _score;
 
@@ -163,9 +164,13 @@ public class Player : MonoBehaviour
     private void FireMissile()
     {
         _canFireMissile = Time.time + _missileFireRate;
-        Instantiate(_missilePrefab, transform.position + new Vector3(-0.72f, -0.43f, 0), Quaternion.identity);
-        _audioSource.clip = _missileSoundClip;
-        _audioSource.Play();
+        if (_isMissileActive ==true)
+        {
+            Instantiate(_missilePrefab, transform.position + new Vector3(-0.72f, -0.43f, 0), Quaternion.identity);
+            _audioSource.clip = _missileSoundClip;
+            _audioSource.Play();
+        }
+        
     }
 
     public void TakeDamage()
@@ -313,5 +318,16 @@ public class Player : MonoBehaviour
         
     }
 
+    public void ActivateMissile()
+    {
+        _isMissileActive = true;
+        StartCoroutine(MissilePowerDownRoutine());
+    }
 
+    IEnumerator MissilePowerDownRoutine()
+    {
+
+        yield return new WaitForSeconds(9f);
+        _isMissileActive = false;
+    }
 }
