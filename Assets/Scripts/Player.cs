@@ -23,13 +23,13 @@ public class Player : MonoBehaviour
     private bool _isMissileActive;
     [SerializeField]
     private int _score;
-
+    [SerializeField]
+    private int _engineOverSpeedCount;
     private int _totalLasers = 15;
     [SerializeField]
     private int _currentLasers;
 
-
-
+    private ThrusterBar _thrusterBar;
     private SpawnManager _spawnManager;
     private UIManager _uiManager;
     [SerializeField]
@@ -62,26 +62,27 @@ public class Player : MonoBehaviour
     private GameObject _rightEngine;
     [SerializeField]
     private GameObject _leftEngine;
-
+    private bool _isHighspeed;
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
-        if (_spawnManager ==null)
+        _thrusterBar = GameObject.Find("ThrusterBar").GetComponent<ThrusterBar>();
+        if (_spawnManager == null)
         {
             Debug.LogError("The SpawnManager is NULL:");
         }
-        if(_uiManager==null)
+        if (_uiManager == null)
         {
             Debug.LogError("The UIManager is NULL:");
         }
-          
         if (_audioSource == null)
         {
             Debug.LogError("The Audio Source is NULL:");
         }
+
         _shieldVisualizer.SetActive(false);
         _currentLasers = _totalLasers;
     }
@@ -94,18 +95,33 @@ public class Player : MonoBehaviour
         {
             FireLaser();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha9) && Time.time >_canFireMissile)
+        if (Input.GetKeyDown(KeyCode.Alpha9) && Time.time > _canFireMissile)
         {
             FireMissile();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _thrusterBar.IsThrusting())
         {
-            _moveSpeed *= _speedMultiplier;
+            SetShipSpeed(true);
+            _thrusterBar.DecreasethrusterBar();
         }
+
+       
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            _moveSpeed /= _speedMultiplier;
+            if (_thrusterBar.IsEngineOverHeat() == true)
+            {
+               
+                _moveSpeed = 5;
+                _thrusterBar.IncreaseThrusterBar();
+                Debug.Log("IncreseRoutine():Inside If");
+            }
+            else
+            {
+                _moveSpeed = 5;
+                _thrusterBar.IncreaseThrusterBar();
+                Debug.Log("IncreseRoutine():outside if");
+            }
         }
 
 
@@ -164,13 +180,13 @@ public class Player : MonoBehaviour
     private void FireMissile()
     {
         _canFireMissile = Time.time + _missileFireRate;
-        if (_isMissileActive ==true)
+        if (_isMissileActive == true)
         {
             Instantiate(_missilePrefab, transform.position + new Vector3(-0.72f, -0.43f, 0), Quaternion.identity);
             _audioSource.clip = _missileSoundClip;
             _audioSource.Play();
         }
-        
+
     }
 
     public void TakeDamage()
@@ -196,7 +212,6 @@ public class Player : MonoBehaviour
                 _shieldVisualizer.SetActive(false);
                 return;
             }
-
         }
         _lives--;
         if (_lives == 2)
@@ -276,7 +291,7 @@ public class Player : MonoBehaviour
         {
             _uiManager.UpdateAmmo(_currentLasers);
         }
-        
+
         if (_currentLasers < 1)
         {
             _currentLasers = 0;
@@ -301,7 +316,7 @@ public class Player : MonoBehaviour
         if (_lives < 3)
         {
             _lives++;
-            if (_lives == 3 )
+            if (_lives == 3)
             {
                 _rightEngine.SetActive(false);
             }
@@ -315,7 +330,7 @@ public class Player : MonoBehaviour
             }
         }
         Instantiate(_particle, transform.position, Quaternion.identity);
-        
+
     }
 
     public void ActivateMissile()
@@ -326,8 +341,24 @@ public class Player : MonoBehaviour
 
     IEnumerator MissilePowerDownRoutine()
     {
-
         yield return new WaitForSeconds(9f);
         _isMissileActive = false;
+    }
+
+    public void SetShipSpeed(bool isHighSpeed)
+    {
+        this._isHighspeed = isHighSpeed;
+        _moveSpeed = _isHighspeed ? _moveSpeed * 2 : _moveSpeed =5;
+        if (_isHighspeed==false &&_thrusterBar.IsEngineOverHeat()==true)
+        {
+            _engineOverSpeedCount++;
+            if (_engineOverSpeedCount==3)
+            {
+                _thrusterBar.ActivateThrusterCoolDown();
+                _engineOverSpeedCount = 0;
+            }
+        }
+      
+        
     }
 }
