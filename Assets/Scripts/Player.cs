@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _currentLasers;
 
+    private CameraShaker _cameraShaker;
     private ThrusterBar _thrusterBar;
     private SpawnManager _spawnManager;
     private UIManager _uiManager;
@@ -70,6 +71,7 @@ public class Player : MonoBehaviour
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
         _thrusterBar = GameObject.Find("ThrusterBar").GetComponent<ThrusterBar>();
+        _cameraShaker = GameObject.Find("Camera_Handler").GetComponentInChildren<CameraShaker>();
         if (_spawnManager == null)
         {
             Debug.LogError("The SpawnManager is NULL:");
@@ -198,6 +200,7 @@ public class Player : MonoBehaviour
             if (_shieldStrength == 2)
             {
                 StartCoroutine(ShieldHitVisual());
+
                 return;
             }
             else if (_shieldStrength == 1)
@@ -216,16 +219,19 @@ public class Player : MonoBehaviour
         _lives--;
         if (_lives == 2)
         {
+            _cameraShaker.CameraShake(0.5f, 0.15f);
             _rightEngine.SetActive(true);
         }
         else if (_lives == 1)
         {
+            _cameraShaker.CameraShake(0.5f, 0.15f);
             _leftEngine.SetActive(true);
         }
         _uiManager.UpdateLives(_lives);
 
         if (_lives < 1)
         {
+            _cameraShaker.CameraShake(0.5f, 0.15f);
             if (_spawnManager != null)
             {
                 _spawnManager.OnPlayerDeath();
