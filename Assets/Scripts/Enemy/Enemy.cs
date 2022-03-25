@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private float _speed = 4;
+    [SerializeField]
+    private float _speed = 3;
     private Player _player;
 
     [SerializeField]
@@ -17,6 +18,10 @@ public class Enemy : MonoBehaviour
 
     private float _fireRate;
     private float _canFire;
+    [SerializeField]
+    private int _amplitude=1;
+
+    private float _frequency = 2f;
     private void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
@@ -27,6 +32,10 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        float x = Mathf.Cos(Time.time* _frequency) * _amplitude;
+        float y = transform.position.y;
+        float z = transform.position.z;
+        transform.position = new Vector3(x, y, z);
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
         if (transform.position.y < -7)
