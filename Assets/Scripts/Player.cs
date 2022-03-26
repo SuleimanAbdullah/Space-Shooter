@@ -295,7 +295,7 @@ public class Player : MonoBehaviour
         _currentLasers -= amount;
         if (_uiManager != null)
         {
-            _uiManager.UpdateAmmo(_currentLasers);
+            _uiManager.UpdateAmmo(_currentLasers,_totalLasers);
         }
 
         if (_currentLasers < 1)
@@ -309,7 +309,7 @@ public class Player : MonoBehaviour
         _currentLasers = amount;
         if (_uiManager != null)
         {
-            _uiManager.UpdateAmmo(_currentLasers);
+            _uiManager.UpdateAmmo(_currentLasers,_totalLasers);
         }
         if (_currentLasers < 1)
         {

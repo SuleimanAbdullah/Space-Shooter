@@ -20,11 +20,14 @@ public class UIManager : MonoBehaviour
     private GameManager _gameManager;
     [SerializeField]
     private Text _ammoText;
+    private int _maxAmmo =15;
+    private int _currentAmmo;
 
     void Start()
     {
+        _currentAmmo = _maxAmmo;
         _scoreText.text = "Score:" + 0;
-        _ammoText.text = "Ammo:" + 15;
+        _ammoText.text = "Ammo:" +_currentAmmo +"/" +_maxAmmo;
 
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         if (_gameManager == null)
@@ -37,9 +40,9 @@ public class UIManager : MonoBehaviour
     {
         _scoreText.text = "Score:" + score;
     }
-    public void UpdateAmmo(int ammo)
+    public void UpdateAmmo(int curentammo ,int maxAmmo)
     {
-        _ammoText.text = "Ammo:" + ammo;
+        _ammoText.text = "Ammo:" + curentammo + "/" + maxAmmo;
     }
 
     public void UpdateLives(int currentLives)
