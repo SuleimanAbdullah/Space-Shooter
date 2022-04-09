@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _scoreText;
     [SerializeField]
+    private Text _WaveText;
+    [SerializeField]
     private Image _imageLives;
     [SerializeField]
     private Sprite[] _livesSprite;
@@ -29,6 +31,7 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score:" + 0;
         _ammoText.text = "Ammo:" +_currentAmmo +"/" +_maxAmmo;
 
+        _WaveText.text = string.Empty;
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         if (_gameManager == null)
         {
@@ -77,5 +80,20 @@ public class UIManager : MonoBehaviour
             yield return new WaitForSeconds(.2f);
             _gameOverText.SetActive(true);
         }
+    }
+
+    public void UpdatWaveText(int currentWaveNumber)
+    {
+        Debug.Log("UpdateWaveText");
+        _WaveText.gameObject.SetActive(true);
+        _WaveText.text = "Wave " + currentWaveNumber;
+        StartCoroutine(TimeBeforeDisableWaveText());
+        
+    }
+
+    IEnumerator TimeBeforeDisableWaveText()
+    {
+        yield return new WaitForSeconds(3f);
+        _WaveText.gameObject.SetActive(false);
     }
 }

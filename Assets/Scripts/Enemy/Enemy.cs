@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,13 +14,17 @@ public class Enemy : MonoBehaviour
 
     private Animator _animator;
     private Collider2D _enemyCollider;
+
     [SerializeField]
     private GameObject _enemyLaserPrefab;
 
     private float _fireRate;
     private float _canFire;
+
     [SerializeField]
-    private int _amplitude=1;
+    private int _amplitude = 1;
+
+    public static Action onDeath; 
 
     private float _frequency = 2f;
     private void Start()
@@ -32,15 +37,16 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        float x = Mathf.Cos(Time.time* _frequency) * _amplitude;
-        float y = transform.position.y;
-        float z = transform.position.z;
-        transform.position = new Vector3(x, y, z);
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        // float x =Mathf.Cos(Time.time * _frequency);
+        //float y = transform.position.y;
+        //float z = transform.position.z;
+        //transform.position = new Vector3(x, y, z);
+        //comenting this and add mathf.cos inside translator to fix enemy spawn while moving on top of others
+        transform.Translate(new Vector3(Mathf.Cos(Time.time * _frequency) * _amplitude, -1,0) * _speed * Time.deltaTime);
 
         if (transform.position.y < -7)
         {
-            transform.position = new Vector3(Random.Range(-9, 9), 8, 0);
+            transform.position = new Vector3(UnityEngine.Random.Range(-9, 10), 8, 0);
         }
 
         if (Time.time > _canFire)
@@ -55,6 +61,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            onDeath();
             if (_player != null)
             {
                 _player.TakeDamage();
@@ -71,6 +78,7 @@ public class Enemy : MonoBehaviour
         }
         if (other.tag == "Laser")
         {
+            onDeath();
             Destroy(other.gameObject);
             _player.AddingScoreWhenKillEnemyL(10);
             if (_animator != null)
@@ -83,6 +91,7 @@ public class Enemy : MonoBehaviour
         }
         if (other.tag == "Missile")
         {
+            onDeath();
             _player.AddingScoreWhenKillEnemyL(10);
             if (_animator != null)
             {
@@ -96,13 +105,12 @@ public class Enemy : MonoBehaviour
 
     private void EnemyFire()
     {
-        _fireRate = Random.Range(3, 6);
+        _fireRate = UnityEngine.Random.Range(4, 7);
         _canFire = Time.time + _fireRate;
         GameObject enemyLaser = Instantiate(_enemyLaserPrefab, transform.position, Quaternion.identity);
         Laser[] lasers = enemyLaser.GetComponentsInChildren<Laser>();
         lasers[0].ActivateEnemyLaser();
         lasers[1].ActivateEnemyLaser();
     }
-
 
 }
