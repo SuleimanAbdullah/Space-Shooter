@@ -339,6 +339,11 @@ public class Player : MonoBehaviour
 
     }
 
+    public void NegativePowerup()
+    {
+        TakeDamage();
+    }
+
     public void ActivateMissile()
     {
         _isMissileActive = true;

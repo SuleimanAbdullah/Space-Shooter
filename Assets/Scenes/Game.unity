@@ -1366,9 +1366,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - enemyCount: 3
+  - enemyCount: 1
     timeBetweenSpawns: 5
-  - enemyCount: 5
+  - enemyCount: 2
     timeBetweenSpawns: 5
   _enemyPrefab: {fileID: 5225853990280099591, guid: 5433ec054ad85b646ab96f259b8a3838,
     type: 3}
@@ -1385,6 +1385,7 @@ MonoBehaviour:
   - {fileID: 1829534427207049303, guid: c45a76aebbab10c4cbfdf4b9bf43524e, type: 3}
   - {fileID: 5658817945825072167, guid: f11b5ee6d6943ef43b3b0655cc6c992e, type: 3}
   - {fileID: 248794185838560928, guid: 2877a5650732e5546aefb888211618a5, type: 3}
+  - {fileID: 1209664469995879239, guid: ace9b75def6a14d4682fd41f769a611c, type: 3}
   _medkitPrefab: {fileID: 8341712040375611605, guid: ffb03405865414f4dbcdd48fb995a5b9,
     type: 3}
   _missilePowerupPrefab: {fileID: 9179257763480002869, guid: 92e1393b3e89679428b42c1ae5b7a91a,

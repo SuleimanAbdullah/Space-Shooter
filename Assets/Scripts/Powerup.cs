@@ -59,6 +59,9 @@ public class Powerup : MonoBehaviour
                     case 4:
                         _player.ActivateMissile();
                         break;
+                    case 5:
+                        _player.NegativePowerup();
+                        break;
                 }
             }
             _powerupsprite.enabled = false;
