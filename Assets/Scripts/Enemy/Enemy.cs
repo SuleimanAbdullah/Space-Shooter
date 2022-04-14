@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     private float _canFire;
 
     [SerializeField]
-    private int _amplitude = 1;
+    private float _amplitude = .3f;
 
     public static Action onDeath; 
 
