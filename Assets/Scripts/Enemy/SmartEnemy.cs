@@ -64,7 +64,7 @@ public class SmartEnemy : MonoBehaviour
 
     void SmartEnemyFireMissile()
     {
-        _missileFireRate = UnityEngine.Random.Range(5, 8);
+        _missileFireRate = UnityEngine.Random.Range(30, 60);
         _canFireMissile = Time.time + _missileFireRate;
         Instantiate(_enemyMissilePrefab, transform.position + new Vector3(0.607f, -0.157f, 0),Quaternion.identity);
     }

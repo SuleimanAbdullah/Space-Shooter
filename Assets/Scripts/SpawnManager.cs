@@ -31,9 +31,7 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] _PowerupPrefabs;
 
     [SerializeField]
-    private GameObject _medkitPrefab;
-    [SerializeField]
-    private GameObject _missilePowerupPrefab;
+    private GameObject[] _rarePowerupsPrefabs;
     private UIManager _uIManager;
 
     private void Start()
@@ -53,17 +51,14 @@ public class SpawnManager : MonoBehaviour
                
                 SpawnEnemy();
             }
-            
         }
-
     }
     public void StartSpawning()
     {
         _isAsteroidDestroyed = true;
         StartCoroutine(NextWave());
-        StartCoroutine(SpawntPowerupsRoutine());
-        StartCoroutine(SpawnMedKitRoutine());
-        StartCoroutine(SpawnPowerupRarely());
+        StartCoroutine(SpawnFrequentlyPowerupsRoutine());
+        StartCoroutine(RarePowerupRotine());
     }
 
     void SpawnEnemy()
@@ -100,9 +95,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-
-
-    IEnumerator SpawntPowerupsRoutine()
+    IEnumerator SpawnFrequentlyPowerupsRoutine()
     {
         while (_isDead == false)
         {
@@ -113,26 +106,13 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-
-    IEnumerator SpawnMedKitRoutine()
-    {
-        while (_isDead == false)
-        {
-            yield return new WaitForSeconds(9f);
-            Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
-            Instantiate(_medkitPrefab, randomPos, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(8f, 16f));
-
-        }
-    }
-
-    IEnumerator SpawnPowerupRarely()
+    IEnumerator RarePowerupRotine()
     {
         while (_isDead == false)
         {
             yield return new WaitForSeconds(15);
             Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
-            Instantiate(_missilePowerupPrefab, randomPos, Quaternion.identity);
+           Instantiate(_rarePowerupsPrefabs[Random.Range(0,2)], randomPos, Quaternion.identity);
             yield return new WaitForSeconds(15f);
         }
     }
