@@ -24,6 +24,11 @@ public class SmartEnemy : MonoBehaviour
     private Player _player;
     public static Action onDeath;
 
+    private bool _isShieldActive = true;
+
+    [SerializeField]
+    private GameObject _enemyShield;
+
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -74,6 +79,12 @@ public class SmartEnemy : MonoBehaviour
         
         if (other.tag == "Player")
         {
+            if (_isShieldActive == true)
+            {
+                _isShieldActive = false;
+                _enemyShield.SetActive(false);
+                return;
+            }
             if (onDeath !=null)
             {
                 onDeath();
@@ -92,6 +103,27 @@ public class SmartEnemy : MonoBehaviour
             Destroy(_enemyCollider);
            Destroy(this.gameObject, 1.58f);
            
+        }
+
+        if (other.tag == "Laser")
+        {
+            if (_isShieldActive == true)
+            {
+                _isShieldActive = false;
+                _enemyShield.SetActive(false);
+                return;
+            }
+            if (onDeath != null)
+            {
+                onDeath();
+            }
+            if (_animator != null)
+            {
+                _animator.SetTrigger("OnBoom");
+            }
+            AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
+            Destroy(_enemyCollider);
+            Destroy(this.gameObject, 1.56f);
         }
     }
 }
