@@ -28,6 +28,12 @@ public class SmartEnemy : MonoBehaviour
 
     [SerializeField]
     private GameObject _enemyShield;
+    private float _moveSpeed = 3;
+
+    private Transform _target;
+    [SerializeField]
+    private float _aggroRange = 5;
+
 
     private void Start()
     {
@@ -37,16 +43,17 @@ public class SmartEnemy : MonoBehaviour
         {
             Debug.LogError("Animator is NULL:");
         }
-        if (_enemyCollider ==null)
+        if (_enemyCollider == null)
         {
             Debug.LogError("EnemyCollider is NULL:");
         }
+        _target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
     {
-        transform.Translate(new Vector3(Mathf.Cos(Time.time * 2), Mathf.Sin(Time.time * 2), 0) * 3 * Time.deltaTime);
-        transform.Translate(Vector3.down * Time.deltaTime);
+        //transform.Translate(new Vector3(Mathf.Cos(Time.time * 1), Mathf.Sin(Time.time * 1), 0) * 1 * Time.deltaTime);
+        transform.Translate(Vector3.down * _moveSpeed * Time.deltaTime);
 
         if (transform.position.y < -7)
         {
@@ -57,7 +64,7 @@ public class SmartEnemy : MonoBehaviour
 
         if (Time.time > _canFireMissile)
             SmartEnemyFireMissile();
-    }
+        EnemyAggro();}
 
 
     void SmartEnemyFireLaser()
@@ -71,12 +78,12 @@ public class SmartEnemy : MonoBehaviour
     {
         _missileFireRate = UnityEngine.Random.Range(30, 60);
         _canFireMissile = Time.time + _missileFireRate;
-        Instantiate(_enemyMissilePrefab, transform.position + new Vector3(0.607f, -0.157f, 0),Quaternion.identity);
+        Instantiate(_enemyMissilePrefab, transform.position + new Vector3(0.607f, -0.157f, 0), Quaternion.identity);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
+
         if (other.tag == "Player")
         {
             if (_isShieldActive == true)
@@ -85,7 +92,7 @@ public class SmartEnemy : MonoBehaviour
                 _enemyShield.SetActive(false);
                 return;
             }
-            if (onDeath !=null)
+            if (onDeath != null)
             {
                 onDeath();
             }
@@ -101,8 +108,8 @@ public class SmartEnemy : MonoBehaviour
             }
             AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
             Destroy(_enemyCollider);
-           Destroy(this.gameObject, 1.58f);
-           
+            Destroy(this.gameObject, 1.58f);
+
         }
 
         if (other.tag == "Laser")
@@ -125,5 +132,43 @@ public class SmartEnemy : MonoBehaviour
             Destroy(_enemyCollider);
             Destroy(this.gameObject, 1.56f);
         }
+        if (other.tag == "Missile")
+        {
+            if (_isShieldActive == true)
+            {
+                _isShieldActive = false;
+                _enemyShield.SetActive(false);
+                return;
+            }
+            if (onDeath != null)
+            {
+                onDeath();
+            }
+            if (_animator != null)
+            {
+                _animator.SetTrigger("OnBoom");
+            }
+            AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
+            Destroy(_enemyCollider);
+            Destroy(this.gameObject, 1.56f);
+        }
+    }
+
+    void EnemyAggro()
+    {
+        Vector3 direction = _target.position - transform.position;
+        Debug.DrawRay(transform.position, direction, Color.red);
+        if (Vector2.Distance(transform.position, _target.position) <= _aggroRange)
+        {
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
+            Debug.Log("Angle:" + angle);
+            Quaternion angleAxis = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, angleAxis, Time.deltaTime * 40);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity , Time.deltaTime * 80);
+        }
+
     }
 }

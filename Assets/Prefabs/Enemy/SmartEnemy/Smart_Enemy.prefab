@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: -12884199843304562}
   m_Layer: 0
   m_Name: Smart_Enemy
-  m_TagString: Untagged
+  m_TagString: SmartEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,12 +246,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e98e361ba46b744a5466650bb67982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyLasersPrefab: {fileID: 1330281954974425236, guid: 65ebc61aa0ef1b14fabd5e2fb13b46ab,
+  _enemyLasersPrefab: {fileID: 1330281954974425236, guid: d4a7dfe8ad5e4774991eb0fad2aa85d2,
     type: 3}
-  _enemyMissilePrefab: {fileID: 8949736131897643060, guid: fca9d841fed14b640bbc3596243abfa1,
+  _enemyMissilePrefab: {fileID: 8949736131897643060, guid: 0634e207e73768748a2190a490fbf783,
     type: 3}
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _enemyShield: {fileID: 8963588874557106790}
+  _target: {fileID: 2144248604214643013, guid: d2f6f97e5fcfdaf4c9f00bd375b096e0, type: 3}
+  _aggroRange: 5
+  _aggroSpeed: 4
 --- !u!95 &-12884199843304562
 Animator:
   serializedVersion: 3

@@ -144,6 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 5225853990280099591, guid: 5433ec054ad85b646ab96f259b8a3838, type: 3}
+  _target2: {fileID: 9148264039964551597, guid: cc11a14ab4d1d7d4ea28f000ae6e7fcc,
+    type: 3}
   _speed: 5
   _rotatingSpeed: 200
   _explosion: {fileID: 6062263950567597824, guid: 4c9ac18d449cf7245bbcb81c83b9102d,

@@ -1372,7 +1372,7 @@ MonoBehaviour:
     timeBetweenSpawns: 5
   _enemyPrefabs:
   - {fileID: 5225853990280099591, guid: 5433ec054ad85b646ab96f259b8a3838, type: 3}
-  - {fileID: 9148264039964551597, guid: d7ce96aa3852d194394ef5096251fcf5, type: 3}
+  - {fileID: 9148264039964551597, guid: cc11a14ab4d1d7d4ea28f000ae6e7fcc, type: 3}
   currentWave:
     enemyCount: 0
     timeBetweenSpawns: 0

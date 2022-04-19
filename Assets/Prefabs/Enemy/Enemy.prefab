@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 3
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
-  _enemyLaserPrefab: {fileID: 5615667728767915362, guid: 139773f1af677c74ebb26cdfd644defc,
+  _enemyLaserPrefab: {fileID: 5615667728767915362, guid: ad1e45e8950942645a2b2e1884a5e81d,
     type: 3}
   _amplitude: 1
 --- !u!212 &2938154881845219376
