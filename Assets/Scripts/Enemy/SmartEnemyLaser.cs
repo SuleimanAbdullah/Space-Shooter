@@ -7,11 +7,20 @@ public class SmartEnemyLaser : MonoBehaviour
     [SerializeField]
     private float _speed;
     private Player _player;
+    private bool _isBackGun;
+
 
     // Update is called once per frame
     void Update()
     {
-        MoveDown();
+        if (_isBackGun ==false)
+        {
+            MoveDown();
+        }
+        else
+        {
+            MoveUp();
+        }
     }
 
     private void MoveDown()
@@ -27,6 +36,15 @@ public class SmartEnemyLaser : MonoBehaviour
         }
     }
 
+    private void MoveUp()
+    {
+        transform.Translate(Vector3.up * _speed * Time.deltaTime);
+        if (transform.position.y > 9)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
@@ -37,5 +55,11 @@ public class SmartEnemyLaser : MonoBehaviour
                 _player.TakeDamage();
             }
         }
+    }
+
+
+    public void ActivatBackGun()
+    {
+        _isBackGun = true;
     }
 }

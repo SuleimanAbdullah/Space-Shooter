@@ -1372,7 +1372,7 @@ MonoBehaviour:
     timeBetweenSpawns: 5
   _enemyPrefabs:
   - {fileID: 5225853990280099591, guid: 5433ec054ad85b646ab96f259b8a3838, type: 3}
-  - {fileID: 9148264039964551597, guid: cc11a14ab4d1d7d4ea28f000ae6e7fcc, type: 3}
+  - {fileID: 4736431895780991469, guid: 7d309b8730fb62d4c9bfd42ed55169c8, type: 3}
   currentWave:
     enemyCount: 0
     timeBetweenSpawns: 0
@@ -2453,7 +2453,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.033292413, y: -0.3940971}
+  m_Offset: {x: -0.00085771084, y: -0.3940971}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2464,7 +2464,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.705413, y: 3.367126}
+  m_Size: {x: 3.1835115, y: 3.367126}
   m_EdgeRadius: 0
 --- !u!50 &1853566129
 Rigidbody2D:

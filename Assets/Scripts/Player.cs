@@ -370,4 +370,9 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    public bool IsPlayerAlive()
+    {
+        return _lives > 1;
+    }
 }

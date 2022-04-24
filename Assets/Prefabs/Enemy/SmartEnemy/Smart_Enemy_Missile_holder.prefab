@@ -42,8 +42,8 @@ GameObject:
   - component: {fileID: 8949736132975784188}
   - component: {fileID: 8949736132975784187}
   - component: {fileID: 8949736132975784186}
-  - component: {fileID: 8949736132975784185}
   - component: {fileID: 8949736132975784184}
+  - component: {fileID: 597260033121632502}
   m_Layer: 0
   m_Name: Enemy_Missile_Sprite
   m_TagString: Untagged
@@ -142,23 +142,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.26, y: 1.33}
   m_EdgeRadius: 0
---- !u!114 &8949736132975784185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8949736132975784189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0593be2daad93f241a2dc3d3d1146b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _target: {fileID: 0}
-  _speed: 4
-  _rotatingSpeed: 200
-  _explosion: {fileID: 6062263950567597824, guid: 4c9ac18d449cf7245bbcb81c83b9102d,
-    type: 3}
 --- !u!50 &8949736132975784184
 Rigidbody2D:
   serializedVersion: 4
@@ -180,3 +163,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &597260033121632502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8949736132975784189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 721a638451d3b93498fb8acdaf3e04c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 0}
+  _speed: 4
+  _rotatingSpeed: 200
+  _explosion: {fileID: 6062263950567597824, guid: 4c9ac18d449cf7245bbcb81c83b9102d,
+    type: 3}

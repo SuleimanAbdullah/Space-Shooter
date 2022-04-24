@@ -7,6 +7,7 @@ public class SmartEnemy : MonoBehaviour
 {
     [SerializeField]
     private GameObject _enemyLasersPrefab;
+    [SerializeField]
     private float _fireRate;
     private float _canFire;
 
@@ -28,12 +29,18 @@ public class SmartEnemy : MonoBehaviour
 
     [SerializeField]
     private GameObject _enemyShield;
+    [SerializeField]
     private float _moveSpeed = 3;
 
     private Transform _target;
     [SerializeField]
     private float _aggroRange = 5;
+    [SerializeField]
+    private GameObject _smartEnemyLaserPrefab;
+    [SerializeField]
+    private bool _isTargetBehind;
 
+    private float _dot;
 
     private void Start()
     {
@@ -48,31 +55,66 @@ public class SmartEnemy : MonoBehaviour
             Debug.LogError("EnemyCollider is NULL:");
         }
         _target = GameObject.FindGameObjectWithTag("Player").transform;
+        //transform.rotation = Quaternion.Euler(0, 0, 180);
     }
 
     void Update()
     {
         //transform.Translate(new Vector3(Mathf.Cos(Time.time * 1), Mathf.Sin(Time.time * 1), 0) * 1 * Time.deltaTime);
-        transform.Translate(Vector3.down * _moveSpeed * Time.deltaTime);
+        transform.Translate(Vector3.up * _moveSpeed * Time.deltaTime);
 
         if (transform.position.y < -7)
         {
             transform.position = new Vector3(UnityEngine.Random.Range(-9, 10), 8, 0);
         }
-        if (Time.time > _canFire)
-            SmartEnemyFireLaser();
 
-        if (Time.time > _canFireMissile)
-            SmartEnemyFireMissile();
-        EnemyAggro();}
+        if (_isTargetBehind == false)
+        {
+            if (Time.time > _canFire)
+            {
+                SmartEnemyFireLaser();
+            }
+        }
+
+        if (_dot < -0.986f)
+        {
+            _isTargetBehind = true;
+
+            if (Time.time > _canFire)
+            {
+                FireBackLaser();
+            }
+        }
+        else
+        {
+            _isTargetBehind = false;
+        }
+
+        //if (Time.time > _canFireMissile)
+        //  SmartEnemyFireMissile();
+        EnemyAggro();
+        SmartEnemyDetectPlayerFromBack();
+    }
 
 
     void SmartEnemyFireLaser()
     {
-        _fireRate = UnityEngine.Random.Range(4, 7);
+        _fireRate = UnityEngine.Random.Range(2f, 2);
         _canFire = Time.time + _fireRate;
         Instantiate(_enemyLasersPrefab, transform.position, Quaternion.identity);
     }
+
+    private void FireBackLaser()
+    {
+        _fireRate = 1.5f;
+        _canFire = Time.time + _fireRate;
+        GameObject SmartEnemyLaser = Instantiate(_smartEnemyLaserPrefab, transform.position + new Vector3(-0.017f, 2.19f, 0), Quaternion.identity);
+
+        SmartEnemyLaser laser = SmartEnemyLaser.GetComponent<SmartEnemyLaser>();
+        laser.ActivatBackGun();
+    }
+
+
 
     void SmartEnemyFireMissile()
     {
@@ -156,19 +198,32 @@ public class SmartEnemy : MonoBehaviour
 
     void EnemyAggro()
     {
-        Vector3 direction = _target.position - transform.position;
-        Debug.DrawRay(transform.position, direction, Color.red);
-        if (Vector2.Distance(transform.position, _target.position) <= _aggroRange)
+        if (_target != null)
         {
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
-            Debug.Log("Angle:" + angle);
-            Quaternion angleAxis = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.rotation = Quaternion.Slerp(transform.rotation, angleAxis, Time.deltaTime * 40);
-        }
-        else
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity , Time.deltaTime * 80);
+            Vector3 direction = _target.position - transform.position;
+            Debug.DrawRay(transform.position, direction, Color.red);
+            if (Vector2.Distance(transform.position, _target.position) <= _aggroRange)
+            {
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
+                Quaternion angleAxis = Quaternion.AngleAxis(angle, Vector3.forward);
+                transform.rotation = Quaternion.Slerp(transform.rotation, angleAxis, Time.deltaTime * 40);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 180), Time.deltaTime * 80);
+            }
         }
 
+    }
+
+    private void SmartEnemyDetectPlayerFromBack()
+    {
+        if (_target != null)
+        {
+            Vector3 directioToTarget = _target.position - transform.position;
+            directioToTarget.Normalize();
+            _dot = Vector3.Dot(transform.up, directioToTarget);
+            Debug.Log("DotProduct: " + _dot);
+        }
     }
 }

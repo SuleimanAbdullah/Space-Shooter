@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class SmartEnemyMissile : MonoBehaviour
 {
-    [SerializeField]
     private GameObject _target;
 
     private Rigidbody2D _rb;
@@ -64,6 +63,10 @@ public class SmartEnemyMissile : MonoBehaviour
             if (player !=null)
             {
                 player.TakeDamage();
+            }
+            if (transform.parent != null)
+            {
+                Destroy(transform.parent.gameObject);
             }
             Destroy(this.gameObject);
             Instantiate(_explosion, transform.position, Quaternion.identity);
