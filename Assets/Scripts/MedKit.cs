@@ -5,6 +5,9 @@ using UnityEngine;
 public class MedKit : MonoBehaviour
 {
     private Player _player;
+
+
+    [SerializeField]
     private float _moveSpeed = 3f;
 
     private void Start()

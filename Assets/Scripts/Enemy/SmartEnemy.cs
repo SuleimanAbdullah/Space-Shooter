@@ -10,6 +10,8 @@ public class SmartEnemy : MonoBehaviour
     [SerializeField]
     private float _fireRate;
     private float _canFire;
+    [SerializeField]
+    private GameObject _explotion;
 
     [SerializeField]
     private GameObject _enemyMissilePrefab;
@@ -41,6 +43,19 @@ public class SmartEnemy : MonoBehaviour
     private bool _isTargetBehind;
 
     private float _dot;
+
+    [SerializeField]
+    private GameObject _laserStartPoint;
+    [SerializeField]
+    private LayerMask _layerMask;
+    [SerializeField]
+    private LineRenderer _lineRenderer;
+
+
+    Vector2 _lookDirection;
+    Vector2 _originPos;
+    Vector2 _targetPoint;
+
 
     private void Start()
     {
@@ -94,6 +109,7 @@ public class SmartEnemy : MonoBehaviour
         //  SmartEnemyFireMissile();
         EnemyAggro();
         SmartEnemyDetectPlayerFromBack();
+        StartCoroutine(ShootPowerup());
     }
 
 
@@ -121,6 +137,33 @@ public class SmartEnemy : MonoBehaviour
         _missileFireRate = UnityEngine.Random.Range(30, 60);
         _canFireMissile = Time.time + _missileFireRate;
         Instantiate(_enemyMissilePrefab, transform.position + new Vector3(0.607f, -0.157f, 0), Quaternion.identity);
+    }
+
+    private IEnumerator ShootPowerup()
+    {
+        _originPos = _laserStartPoint.transform.position;
+        _lookDirection = _laserStartPoint.transform.up;
+
+        RaycastHit2D hitInfo = Physics2D.Raycast(_originPos, _lookDirection, Mathf.Infinity, _layerMask);
+        Debug.DrawRay(_originPos, _lookDirection, Color.red);
+        _targetPoint = hitInfo.point;
+
+        if (hitInfo.collider != null)
+        {
+            _lineRenderer.SetPosition(0, _originPos);
+            _lineRenderer.SetPosition(1, hitInfo.point);
+            _lineRenderer.enabled = true;
+
+            yield return new WaitForSeconds(.089f);
+
+            _lineRenderer.enabled = false;
+            if (hitInfo.transform !=null)
+            {
+                Destroy(hitInfo.transform.gameObject);
+            }
+            
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
