@@ -2333,6 +2333,7 @@ GameObject:
   - component: {fileID: 1853566128}
   - component: {fileID: 1853566125}
   - component: {fileID: 1853566130}
+  - component: {fileID: 1853566131}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2583,6 +2584,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1853566131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853566124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c3db58c1dc194e4e8e0bd4631fd23cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isButtonPressed: 0
 --- !u!1 &1905049325
 GameObject:
   m_ObjectHideFlags: 0

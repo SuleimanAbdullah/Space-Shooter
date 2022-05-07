@@ -85,7 +85,6 @@ public class UIManager : MonoBehaviour
 
     public void UpdatWaveText(int currentWaveNumber)
     {
-        Debug.Log("UpdateWaveText");
         _WaveText.gameObject.SetActive(true);
         _WaveText.text = "Wave " + currentWaveNumber;
         StartCoroutine(TimeBeforeDisableWaveText());

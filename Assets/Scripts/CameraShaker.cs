@@ -15,7 +15,7 @@ public class CameraShaker : MonoBehaviour
     private float _rotationMultiplier = 2f;
 
     // Update is called once per frame
-  
+
     private void LateUpdate()
     {
         if (_shakeTime > 0)
@@ -32,8 +32,6 @@ public class CameraShaker : MonoBehaviour
             _shakeRotation = Mathf.MoveTowards(_shakeRotation, 0, (_shakeFadeTime * _rotationMultiplier) * Time.deltaTime);
 
         }
-
-       
     }
 
     public void CameraShake(float duration, float magnitude)

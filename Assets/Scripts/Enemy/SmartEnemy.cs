@@ -266,7 +266,7 @@ public class SmartEnemy : MonoBehaviour
             Vector3 directioToTarget = _target.position - transform.position;
             directioToTarget.Normalize();
             _dot = Vector3.Dot(transform.up, directioToTarget);
-            Debug.Log("DotProduct: " + _dot);
+            //Debug.Log("DotProduct: " + _dot);
         }
     }
 }

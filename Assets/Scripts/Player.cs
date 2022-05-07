@@ -108,12 +108,12 @@ public class Player : MonoBehaviour
             _thrusterBar.DecreasethrusterBar();
         }
 
-       
+
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             if (_thrusterBar.IsEngineOverHeat() == true)
             {
-               
+
                 _moveSpeed = 5;
                 _thrusterBar.IncreaseThrusterBar();
                 Debug.Log("IncreseRoutine():Inside If");
@@ -176,7 +176,6 @@ public class Player : MonoBehaviour
             _audioSource.Play();
             AmmoCount(1);
         }
-
     }
 
     private void FireMissile()
@@ -295,7 +294,7 @@ public class Player : MonoBehaviour
         _currentLasers -= amount;
         if (_uiManager != null)
         {
-            _uiManager.UpdateAmmo(_currentLasers,_totalLasers);
+            _uiManager.UpdateAmmo(_currentLasers, _totalLasers);
         }
 
         if (_currentLasers < 1)
@@ -309,7 +308,7 @@ public class Player : MonoBehaviour
         _currentLasers = amount;
         if (_uiManager != null)
         {
-            _uiManager.UpdateAmmo(_currentLasers,_totalLasers);
+            _uiManager.UpdateAmmo(_currentLasers, _totalLasers);
         }
         if (_currentLasers < 1)
         {
@@ -359,11 +358,11 @@ public class Player : MonoBehaviour
     public void SetShipSpeed(bool isHighSpeed)
     {
         this._isHighspeed = isHighSpeed;
-        _moveSpeed = _isHighspeed ? _moveSpeed * 2 : _moveSpeed =5;
-        if (_isHighspeed==false &&_thrusterBar.IsEngineOverHeat()==true)
+        _moveSpeed = _isHighspeed ? _moveSpeed * 2 : _moveSpeed = 5;
+        if (_isHighspeed == false && _thrusterBar.IsEngineOverHeat() == true)
         {
             _engineOverSpeedCount++;
-            if (_engineOverSpeedCount==3)
+            if (_engineOverSpeedCount == 3)
             {
                 _thrusterBar.ActivateThrusterCoolDown();
                 _engineOverSpeedCount = 0;

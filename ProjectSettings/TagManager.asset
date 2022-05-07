@@ -8,6 +8,7 @@ TagManager:
   - Laser
   - Missile
   - SmartEnemy
+  - Powerup
   layers:
   - Default
   - TransparentFX

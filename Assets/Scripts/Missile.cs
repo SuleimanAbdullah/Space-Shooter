@@ -25,6 +25,7 @@ public class Missile : MonoBehaviour
     void Start()
     {
         _target = GameObject.FindGameObjectWithTag("Enemy");
+        _target2 = GameObject.FindGameObjectWithTag("SmartEnemy");
         _rb = GetComponent<Rigidbody2D>();
         
     }
