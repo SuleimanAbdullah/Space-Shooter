@@ -66,10 +66,11 @@ public class SpawnManager : MonoBehaviour
         enemiesRemainingToSpawn--;
         nextSpawnTime = Time.time + currentWave.timeBetweenSpawns;
         Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
-        GameObject enemySpawned = Instantiate(_enemyPrefabs[Random.Range(0,2)], randomPos,Quaternion.identity);
+        GameObject enemySpawned = Instantiate(_enemyPrefabs[Random.Range(0,3)], randomPos,Quaternion.identity);
         enemySpawned.transform.parent = _enemyContainer.transform;
         Enemy.onDeath = OnEnemyDeath;
         SmartEnemy.onDeath = OnEnemyDeath;
+        EnemyAvoidShot.OnDeath = OnEnemyDeath;
     }
 
     void OnEnemyDeath()

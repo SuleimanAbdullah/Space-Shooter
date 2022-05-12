@@ -143,4 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671d0ca7429abc0439bada82720d05c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 7
   _isEnemyLaser: 0

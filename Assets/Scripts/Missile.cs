@@ -10,7 +10,6 @@ public class Missile : MonoBehaviour
     [SerializeField]
     private GameObject _target2;
 
-
     private Rigidbody2D _rb;
 
     [SerializeField]
@@ -26,16 +25,15 @@ public class Missile : MonoBehaviour
     {
         _target = GameObject.FindGameObjectWithTag("Enemy");
         _target2 = GameObject.FindGameObjectWithTag("SmartEnemy");
+        
         _rb = GetComponent<Rigidbody2D>();
         
     }
 
-    
     void FixedUpdate()
     {
         CalculateTarget();
     }
-
 
     private void CalculateTarget()
     {
@@ -63,6 +61,7 @@ public class Missile : MonoBehaviour
                 _rb.velocity = transform.up * _speed;
             }
         }
+       
         else
         {
             _rb.velocity = transform.up * _speed;

@@ -193,7 +193,7 @@ public class SmartEnemy : MonoBehaviour
             }
             AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
             Destroy(_enemyCollider);
-            Destroy(this.gameObject, 1.58f);
+            Destroy(this.gameObject, 1.50f);
 
         }
 
@@ -215,7 +215,7 @@ public class SmartEnemy : MonoBehaviour
             }
             AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
             Destroy(_enemyCollider);
-            Destroy(this.gameObject, 1.56f);
+            Destroy(this.gameObject, 1.50f);
         }
         if (other.tag == "Missile")
         {
@@ -235,7 +235,7 @@ public class SmartEnemy : MonoBehaviour
             }
             AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
             Destroy(_enemyCollider);
-            Destroy(this.gameObject, 1.56f);
+            Destroy(this.gameObject, 1.50f);
         }
     }
 
