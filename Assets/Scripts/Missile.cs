@@ -9,6 +9,8 @@ public class Missile : MonoBehaviour
     private GameObject _target;
     [SerializeField]
     private GameObject _target2;
+    [SerializeField]
+    private GameObject _target3;
 
     private Rigidbody2D _rb;
 
@@ -24,34 +26,23 @@ public class Missile : MonoBehaviour
     void Start()
     {
         _target = GameObject.FindGameObjectWithTag("Enemy");
-        _target2 = GameObject.FindGameObjectWithTag("SmartEnemy");
         
         _rb = GetComponent<Rigidbody2D>();
         
     }
 
+    
     void FixedUpdate()
     {
         CalculateTarget();
     }
+
 
     private void CalculateTarget()
     {
         if (_target != null)
         {
             Vector2 direction = (Vector2)_target.transform.position - (Vector2)transform.position;
-            direction.Normalize();
-            float crossValue = Vector3.Cross(direction, transform.up).z;
-            if (_rb != null)
-            {
-                _rb.angularVelocity = _rotatingSpeed * -crossValue;
-
-                _rb.velocity = transform.up * _speed;
-            }
-        }
-        else if (_target2 != null)
-        {
-            Vector2 direction = (Vector2)_target2.transform.position - (Vector2)transform.position;
             direction.Normalize();
             float crossValue = Vector3.Cross(direction, transform.up).z;
             if (_rb != null)
@@ -79,11 +70,6 @@ public class Missile : MonoBehaviour
             Destroy(this.gameObject);
             Instantiate(_explosion, transform.position, Quaternion.identity);
 
-        }
-        if (other.tag == "SmartEnemy")
-        {
-            Destroy(this.gameObject);
-            Instantiate(_explosion, transform.position, Quaternion.identity);
         }
     }
 }

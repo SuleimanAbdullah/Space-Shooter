@@ -113,7 +113,7 @@ public class SpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(15);
             Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
-           Instantiate(_rarePowerupsPrefabs[Random.Range(0,2)], randomPos, Quaternion.identity);
+           Instantiate(_rarePowerupsPrefabs[Random.Range(0,3)], randomPos, Quaternion.identity);
             yield return new WaitForSeconds(15f);
         }
     }

@@ -1391,6 +1391,7 @@ MonoBehaviour:
   _rarePowerupsPrefabs:
   - {fileID: 8341712040375611605, guid: e35553217c1c3a44082ae0a32e47b3cc, type: 3}
   - {fileID: 9179257763480002869, guid: 92e1393b3e89679428b42c1ae5b7a91a, type: 3}
+  - {fileID: 3632684212704007975, guid: ebebedb417a67f54288b14c2af58e9fc, type: 3}
 --- !u!4 &858984583
 Transform:
   m_ObjectHideFlags: 0
@@ -2372,6 +2373,8 @@ MonoBehaviour:
     type: 3}
   _missilePrefab: {fileID: 8681217062171174820, guid: ed118bdfc345d9b48adb03d9afba5b86,
     type: 3}
+  _homingProjectilePrefab: {fileID: 4675853411648823327, guid: 86d71c9d6c6fbb249ae651088b812b74,
+    type: 3}
   _rightEngine: {fileID: 1038661961}
   _leftEngine: {fileID: 166561436}
 --- !u!212 &1853566126
@@ -2432,7 +2435,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853566124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03, y: -4.64, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 472364371}

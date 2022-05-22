@@ -47,5 +47,6 @@ public class EnemyAvoidShot : MonoBehaviour
             Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
+       
     }
 }

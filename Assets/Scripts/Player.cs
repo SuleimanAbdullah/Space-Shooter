@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,10 @@ public class Player : MonoBehaviour
     private float _canFireMissile = -1f;
     private float _missileFireRate = 5f;
 
+    private float _canFireHomingProjectile = -1f;
+    private float _homingProjectileFireRate = 3f;
+
+    private bool _isHomingProjectileActive;
     private bool _isTripleShotActive;
     private bool _isSpeedBoostActive;
     private bool _isShieldActive;
@@ -60,6 +65,9 @@ public class Player : MonoBehaviour
     private GameObject _missilePrefab;
 
     [SerializeField]
+    private GameObject _homingProjectilePrefab;
+
+    [SerializeField]
     private GameObject _rightEngine;
     [SerializeField]
     private GameObject _leftEngine;
@@ -101,7 +109,10 @@ public class Player : MonoBehaviour
         {
             FireMissile();
         }
-
+        if (Input.GetKeyDown(KeyCode.Alpha7) && Time.time >_canFireHomingProjectile)
+        {
+            FireHomingProjectile();
+        }
         if (Input.GetKeyDown(KeyCode.LeftShift) && _thrusterBar.IsThrusting())
         {
             SetShipSpeed(true);
@@ -188,6 +199,14 @@ public class Player : MonoBehaviour
             _audioSource.Play();
         }
 
+    }
+    private void FireHomingProjectile()
+    {
+        _canFireHomingProjectile = Time.time + _homingProjectileFireRate;
+        if (_isHomingProjectileActive ==true)
+        {
+            Instantiate(_homingProjectilePrefab, transform.position + new Vector3(-0.62f, -0.08f, 0), Quaternion.identity);
+        }
     }
 
     public void TakeDamage()
@@ -353,6 +372,18 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(9f);
         _isMissileActive = false;
+    }
+
+    public void ActivateHomingProjectile()
+    {
+        _isHomingProjectileActive = true;
+        StartCoroutine(HomingProjectileDownRoutine());
+    }
+
+    private IEnumerator HomingProjectileDownRoutine()
+    {
+        yield return new WaitForSeconds(9f);
+        _isHomingProjectileActive = false;
     }
 
     public void SetShipSpeed(bool isHighSpeed)
