@@ -6,11 +6,7 @@ using UnityEngine;
 public class Missile : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _target;
-    [SerializeField]
-    private GameObject _target2;
-    [SerializeField]
-    private GameObject _target3;
+    private GameObject[] _targets;
 
     private Rigidbody2D _rb;
 
@@ -25,13 +21,12 @@ public class Missile : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        _target = GameObject.FindGameObjectWithTag("Enemy");
-        
+        _targets = GameObject.FindGameObjectsWithTag("Enemy");
+
         _rb = GetComponent<Rigidbody2D>();
-        
     }
 
-    
+
     void FixedUpdate()
     {
         CalculateTarget();
@@ -40,25 +35,27 @@ public class Missile : MonoBehaviour
 
     private void CalculateTarget()
     {
-        if (_target != null)
+        foreach (GameObject target in _targets)
         {
-            Vector2 direction = (Vector2)_target.transform.position - (Vector2)transform.position;
-            direction.Normalize();
-            float crossValue = Vector3.Cross(direction, transform.up).z;
-            if (_rb != null)
+            if (target != null)
             {
-                _rb.angularVelocity = _rotatingSpeed * -crossValue;
+                Vector2 direction = (Vector2)target.transform.position - (Vector2)transform.position;
+                direction.Normalize();
+                float crossValue = Vector3.Cross(direction, transform.up).z;
+                if (_rb != null)
+                {
+                    _rb.angularVelocity = _rotatingSpeed * -crossValue;
 
-                _rb.velocity = transform.up * _speed;
+                    _rb.velocity = transform.up * _speed;
+                }
             }
-        }
-       
-        else
-        {
-            _rb.velocity = transform.up * _speed;
-            if (_rb.position.y > 15f)
+            else
             {
-                Destroy(this.gameObject);
+                _rb.velocity = transform.up * _speed;
+                if (_rb.position.y > 15f)
+                {
+                    Destroy(this.gameObject);
+                }
             }
         }
     }
@@ -69,7 +66,6 @@ public class Missile : MonoBehaviour
         {
             Destroy(this.gameObject);
             Instantiate(_explosion, transform.position, Quaternion.identity);
-
         }
     }
 }

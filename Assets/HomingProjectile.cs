@@ -7,6 +7,7 @@ public class HomingProjectile : MonoBehaviour
     private GameObject[] _enemies;
     private GameObject _closestEnemy;
     private float _closestEnemyDistance;
+
     [SerializeField]
     private bool _isClosestEnemyFound;
     private Rigidbody2D _rb;
@@ -19,12 +20,8 @@ public class HomingProjectile : MonoBehaviour
     {
         _closestEnemyDistance = Mathf.Infinity;
         _closestEnemy = null;
-        _isClosestEnemyFound = false;
         _rb = GetComponent<Rigidbody2D>();
-        if (_rb == null)
-        {
-            Debug.LogError("Rigidbody is NULL:");
-        }
+        _isClosestEnemyFound = false;
 
     }
 
@@ -42,7 +39,7 @@ public class HomingProjectile : MonoBehaviour
      void GetClosestEnemy()
     {
         _enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (var enemy in _enemies)
+        foreach (GameObject enemy in _enemies)
         {
             float currentDistance = Vector2.Distance(transform.position, enemy.transform.position);
             if (currentDistance < _closestEnemyDistance)
