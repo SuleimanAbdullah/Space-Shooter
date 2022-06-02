@@ -38,12 +38,12 @@ public class ThrusterBar : MonoBehaviour
         _thrusterBarCoolDownSlider.value = _currentValueCoolDown;
         _thrusterCoolDownObj.SetActive(false);
         _coolDownText.text = "";
-
+        _player = GameObject.Find("Player").GetComponent<Player>();
         if (_player == null)
         {
             Debug.LogError("Player is Null:");
         }
-        _player = GameObject.Find("Player").GetComponent<Player>();
+       
     }
     public void DecreasethrusterBar()
     {

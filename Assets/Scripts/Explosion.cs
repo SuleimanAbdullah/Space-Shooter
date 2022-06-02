@@ -6,6 +6,6 @@ public class Explosion : MonoBehaviour
 {
     private void Start()
     {
-        Destroy(this, 4f);
+        Destroy(this, 3f);
     }
 }

@@ -7,12 +7,13 @@ public class Wave
 {
     public int enemyCount;
     public float timeBetweenSpawns;
+    
+    public GameObject[] _enemyPrefabs;
 }
 public class SpawnManager : MonoBehaviour
 {
     public Wave[] waves;
-    [SerializeField]
-    private GameObject[] _enemyPrefabs;
+   
 
     public Wave currentWave;
     public int currentWaveNumber;
@@ -48,7 +49,6 @@ public class SpawnManager : MonoBehaviour
         {
             if (enemiesRemainingToSpawn > 0 && Time.time > nextSpawnTime)
             {
-               
                 SpawnEnemy();
             }
         }
@@ -66,7 +66,8 @@ public class SpawnManager : MonoBehaviour
         enemiesRemainingToSpawn--;
         nextSpawnTime = Time.time + currentWave.timeBetweenSpawns;
         Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
-        GameObject enemySpawned = Instantiate(_enemyPrefabs[Random.Range(0,3)], randomPos,Quaternion.identity);
+       
+        GameObject enemySpawned = Instantiate(currentWave._enemyPrefabs[Random.Range(0, currentWave._enemyPrefabs.Length)], randomPos, Quaternion.identity);
         enemySpawned.transform.parent = _enemyContainer.transform;
         Enemy.onDeath = OnEnemyDeath;
         SmartEnemy.onDeath = OnEnemyDeath;
@@ -113,7 +114,7 @@ public class SpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(15);
             Vector3 randomPos = new Vector3(Random.Range(-9, 9), 8, 0);
-           Instantiate(_rarePowerupsPrefabs[Random.Range(0,3)], randomPos, Quaternion.identity);
+            Instantiate(_rarePowerupsPrefabs[Random.Range(0, 3)], randomPos, Quaternion.identity);
             yield return new WaitForSeconds(15f);
         }
     }

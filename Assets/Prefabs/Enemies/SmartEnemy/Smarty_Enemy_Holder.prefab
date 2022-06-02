@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 8760873230748292712}
   m_Layer: 0
   m_Name: Smart_Enemy
-  m_TagString: SmartEnemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 7608523716901341762}
   m_Layer: 0
   m_Name: Smarty_Enemy_Holder
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraShaker : MonoBehaviour
 {
-
     private float _shakeTime;
 
     private float _shakePower;
@@ -13,8 +12,6 @@ public class CameraShaker : MonoBehaviour
     private float _shakeRotation;
     [SerializeField]
     private float _rotationMultiplier = 2f;
-
-    // Update is called once per frame
 
     private void LateUpdate()
     {
@@ -30,7 +27,6 @@ public class CameraShaker : MonoBehaviour
 
             _shakePower = Mathf.MoveTowards(_shakePower, 0, _shakeFadeTime * Time.deltaTime);
             _shakeRotation = Mathf.MoveTowards(_shakeRotation, 0, (_shakeFadeTime * _rotationMultiplier) * Time.deltaTime);
-
         }
     }
 

@@ -1366,17 +1366,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - enemyCount: 3
+  - enemyCount: 2
     timeBetweenSpawns: 5
-  - enemyCount: 4
+    _enemyPrefabs:
+    - {fileID: 5225853990280099591, guid: 5433ec054ad85b646ab96f259b8a3838, type: 3}
+  - enemyCount: 1
     timeBetweenSpawns: 5
-  _enemyPrefabs:
-  - {fileID: 5225853990280099591, guid: 5433ec054ad85b646ab96f259b8a3838, type: 3}
-  - {fileID: 4736431895780991469, guid: 7d309b8730fb62d4c9bfd42ed55169c8, type: 3}
-  - {fileID: 7418182127897989889, guid: a5695dd4f88cdf94ebb3cd2111c41fb1, type: 3}
+    _enemyPrefabs:
+    - {fileID: 4736431895780991469, guid: 7d309b8730fb62d4c9bfd42ed55169c8, type: 3}
+    - {fileID: 5225853990280099591, guid: 5433ec054ad85b646ab96f259b8a3838, type: 3}
+  - enemyCount: 1
+    timeBetweenSpawns: 0
+    _enemyPrefabs:
+    - {fileID: 6344072814710639252, guid: ebf97135ddd8b364fa29ac2f41efb23d, type: 3}
   currentWave:
     enemyCount: 0
     timeBetweenSpawns: 0
+    _enemyPrefabs: []
   currentWaveNumber: 0
   enemiesRemainingToSpawn: 0
   enemiesRemainingAlive: 0
@@ -2189,6 +2195,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1736535081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1736535082}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1736535082
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736535081}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.61, y: -5.91, z: -1.1877825}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1750885263
 GameObject:
