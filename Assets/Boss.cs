@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
@@ -19,32 +20,45 @@ public class Boss : MonoBehaviour
 
     [SerializeField]
     private GameObject _waveLasersPrefab;
-    [SerializeField]
-    private int _health =20;
-    [SerializeField]
-    private int _currentHealth;
-    [SerializeField] GameObject[] _explosionPrefabs;
+
+    public int _maxHealth = 20;
+
+    public int _currentHealth;
+    [SerializeField] GameObject _explosionPrefab;
+
+    private BossHealthBar _bossHealthBar;
+
     void Start()
     {
-        _currentHealth = _health;
+        _currentHealth = _maxHealth;
         _guns = transform.GetComponentsInChildren<Gun>();
         _cameraShaker = GameObject.Find("Camera_Handler").GetComponentInChildren<CameraShaker>();
+        _bossHealthBar = GameObject.Find("Boss_Canvas").GetComponent<BossHealthBar>();
+        if (_bossHealthBar == null)
+        {
+            Debug.Log("BossHealthBar is NULL:");
+        }
+        if (_cameraShaker == null)
+        {
+            Debug.LogError("CamerShaker is NULL:");
+        }
     }
 
     void Update()
     {
-         transform.Translate(Vector3.down * _speed * Time.deltaTime);
-        if (transform.position.y <= 4.27f)
+        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        if (transform.position.y <= 3.7f)
         {
             float x = (Mathf.Cos(Time.time) * _amplititude);
-            float y = 4.27f;
+            float y = 3.7f;
             float z = transform.position.z;
             transform.position = new Vector3(x, y, z);
         }
 
-        if (Time.time > _canFire && transform.position.y <= 4.27f)
+        if (Time.time > _canFire && transform.position.y <= 3.7f)
         {
             ActivateBossFireBall();
+            _bossHealthBar.ActivateBossHealthObject();
             if (_currentHealth <= 10)
             {
                 ShootWavelasers();
@@ -67,16 +81,14 @@ public class Boss : MonoBehaviour
     private void Damage(int amount)
     {
         _currentHealth -= amount;
+        _bossHealthBar.DecreaseBossHealth(amount);
         if (_currentHealth < 1)
         {
             _currentHealth = 0;
-            foreach (var explosion in _explosionPrefabs)
-            {
-                Instantiate(explosion, transform.position, Quaternion.identity);
-                _cameraShaker.CameraShake(0.5f, 0.15f);
-            }
-           
-            Destroy(this.gameObject,2f);
+            Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            _cameraShaker.CameraShake(0.5f, 0.15f);
+
+            Destroy(this.gameObject, 2f);
         }
     }
 
@@ -90,10 +102,12 @@ public class Boss : MonoBehaviour
         if (other.tag == "Laser")
         {
             Damage(1);
+            _cameraShaker.CameraShake(0.5f, 0.15f);
         }
         if (other.tag == "Missile")
         {
             Damage(2);
+            _cameraShaker.CameraShake(0.6f, 0.16f);
         }
     }
 }

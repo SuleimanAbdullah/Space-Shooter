@@ -25,9 +25,8 @@ public class FireBall : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Player player = transform.GetComponent<Player>();
-            player.TakeDamage();
-            Destroy(this.gameObject);
+            //Player player = GameObject.Find("Player").GetComponent<Player>();
+           // player.TakeDamage();
         }
     }
 }
